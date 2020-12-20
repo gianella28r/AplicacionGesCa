@@ -1,0 +1,2 @@
+# AplicacionGesCa
+correccion de errores
