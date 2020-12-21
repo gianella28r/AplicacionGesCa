@@ -101,7 +101,7 @@ export class ProductosPage implements OnInit  {
   goToEliminarProducto(producto){
     this.detalleUsuarioDashboard();
     let alert = this.alertCtrl.create({
-     title: 'Confirmar borrado',
+     title: 'Confirmar eliminación',
      message: '¿Esta seguro de que desea eliminar este producto?',
      buttons: [
        {

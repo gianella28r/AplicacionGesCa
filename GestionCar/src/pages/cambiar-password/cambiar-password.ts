@@ -67,8 +67,8 @@ export class CambiarPasswordPage implements OnInit{
           //window.location.reload();
         }else{
           let alert = this.alertCtrl.create({
-            title: 'La contraseña Nueva y Verificación de Contraseña no coinciden',
-            message: 'Por favor vuelva a intentar',
+            title: '',
+            message: 'La contraseña Nueva y Verificación de Contraseña no coinciden. Por favor vuelva a intentar',
             buttons: ['OK']
         });
         alert.present();
@@ -83,8 +83,8 @@ export class CambiarPasswordPage implements OnInit{
       }   
     }else{
       let alert = this.alertCtrl.create({
-        title: 'La contraseña actual no es correcta ',
-        message: 'Por favor vuelva a intentar',
+        title: ' ',
+        message: 'La contraseña actual no es correcta. Por favor vuelva a intentar.',
         buttons: ['OK']
     });
     alert.present();

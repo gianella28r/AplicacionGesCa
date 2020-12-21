@@ -83,24 +83,24 @@ export class CambiarCorreoPage implements OnInit {
         
         }else{
           let alert = this.alertCtrl.create({
-            title: 'El nuevo correo eléctronico no puede ser igual al anterior',
-            message: 'Por favor vuelva a intentar',
+            title: '',
+            message: 'El nuevo correo eléctronico no puede ser igual al anterior. Por favor vuelva a intentar',
             buttons: ['OK']
         });
         alert.present();
       }
       else{
         let alert = this.alertCtrl.create({
-          title: 'Error',
-          message: 'La contraseña no coincide. Por favor vuelva a intentar',
+          title: '',
+          message: 'La contraseña no coincide. Por favor vuelva a intentar.',
           buttons: ['OK']
         });
         alert.present();
       }
     }else{
       let alert = this.alertCtrl.create({
-        title: 'El correo eléctronico actual no es correcto ',
-        message: 'Por favor vuelva a intentar',
+        title: '',
+        message: 'El correo eléctronico actual no es correcto. Por favor vuelva a intentar.',
         buttons: ['OK']
     });
     alert.present();

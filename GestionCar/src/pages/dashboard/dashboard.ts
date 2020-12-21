@@ -396,7 +396,7 @@ export class DashboardPage implements OnInit {
   //funcion para eliminar Nota
   eliminarNota(nota){
      let alert = this.alertCtrl.create({
-      title: 'Confirmar borrado',
+      title: 'Confirmar eliminación',
       message: '¿Estás seguro de que desea eliminar esta Nota?',
       buttons: [
         {

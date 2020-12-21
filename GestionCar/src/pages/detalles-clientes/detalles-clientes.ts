@@ -185,8 +185,8 @@ export class DetallesClientesPage implements OnInit {
     }
     else{
       let alert = this.alertCtrl.create({
-        title: 'No se puede realizar la llamada',
-        message: 'El cliente no cuenta con numero de teléfono',
+        title: '',
+        message: 'No se puede realizar la llamada. El cliente no tiene registrado número de teléfono',
         buttons: ['OK']
      });
      alert.present();
@@ -505,7 +505,7 @@ export class DetallesClientesPage implements OnInit {
     console.log(venta.titulo+'¿'+venta.pago+'pago'+venta.anticipo+'anticipo'+venta.subTotal);
     this.detalleUsuarioDashboard();
     let alert = this.alertCtrl.create({
-     title: 'Confirmar borrado',
+     title: 'Confirmar eliminación',
      message: '¿Estás seguro de que desea eliminar esta Nota?',
      buttons: [
        {
