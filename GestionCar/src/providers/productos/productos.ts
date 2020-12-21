@@ -35,6 +35,21 @@ export class ProductosProvider {
     .collection('Productos', ref=>ref.orderBy('nombre','asc'));
     this.productoCollection.add(producto);
   }
+
+  addNewProductoVentas(nombreProducto:any, precioProductoVenta:any, precioProductoTrans:any){
+    console.log('Hello ProductosProvider Provider');
+    let currentUser = firebase.auth().currentUser;
+    this.productoCollection= this.afs.collection('Usuarios').doc(currentUser.uid)
+    .collection('Productos', ref=>ref.orderBy('nombre','asc'));
+    this.productoCollection.add({
+    nombre:nombreProducto,
+    precioVenta: precioProductoVenta,
+    precioTransformado:precioProductoTrans,
+    descripcion:'',
+    image:'',
+    idImagen:''});
+  }
+  
   
   //Método para listar todos los productos de la coleccion Producto almacenado en la Base de datos Cloud Firestore
   getAllProductos():Observable<Productos[]>{

@@ -167,6 +167,9 @@ export class VentaCreditoPage  implements OnInit{
   totalVen: any;
   totalCo: any;
   fecha: string;
+  nombreProducto:any;
+  precioProducto:any;
+  
  constructor( public navCtrl: NavController, private authf: AuthProvider ,public dashboardf: DashboardProvider,public navParams: NavParams, private clientef:ClientesProvider,private ventaf: VentasProvider,private productof:ProductosProvider) {
     this.idCliente = navParams.get("id");
   }
@@ -177,7 +180,7 @@ export class VentaCreditoPage  implements OnInit{
     this.goToObtenerProductos();
     this.obtenerDatosCliente();
     this.detalleUsuarioDashboard(); 
-    this. getFechaActual();
+    this.getFechaActual();
   }
    //funcion para obtener fecha actual
    getFechaActual() {
@@ -258,6 +261,7 @@ export class VentaCreditoPage  implements OnInit{
    //funcion para obtener el producto y su precio 
   capturarItem(){
     this.verSeleccion=this.itemSelected;
+    
     this.calcularPrecio(this.verSeleccion.precioVenta);
   }
 
@@ -514,6 +518,9 @@ export class VentaCreditoPage  implements OnInit{
     value.anticipo=this.precioTrans;
     value.cantidad=this.cantidad;
     value.fechaPago=this.fecha;
+    this.nombreProducto=this.verSeleccion.nombre;
+    console.log(this.nombreProducto+'primera iteraccion');
+    
     this.numeroVentas=this.numeroVentas+1;
     this.numeroVen=this.numeroVen+1;
     if(this.anticipo==0){
@@ -530,6 +537,8 @@ export class VentaCreditoPage  implements OnInit{
     this.obtenerSaldoActual();
     this.ventaf.addNewVenta(value,this.idCliente);
     });
+
+   this.productof.addNewProductoVentas(this.nombreProducto,this.precioReal, this.precioTrans);
     this.navCtrl.pop();
   } 
 
