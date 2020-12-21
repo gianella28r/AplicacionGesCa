@@ -1,0 +1,45 @@
+<!--
+  Generated template for the PagoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.|number:'.2-2'
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Pago</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding >
+  <form #formGuardar="ngForm" (submit)="goToRegistrarPago(formGuardar)">
+    <ion-list>
+      <ion-item id="registroDeCliente-input7">
+        <ion-label>
+          Saldo Actual :
+        </ion-label>
+        <ion-input  type="text"  name= "saldoActual" [(ngModel)]="venta.total"  ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" readonly></ion-input>
+      </ion-item>
+      <div class="spacer" style="height:10;" id="registroDeCliente-spacer9"></div>
+      <ion-item id="registroDeCliente-input10">
+        <ion-label>
+          Monto pagado :
+        </ion-label>
+        <ion-input type="number" [(ngModel)]= "cobroResta"  name="pago"  maxlength="7" [value]=pago (ionChange)="restar($event.value)" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" placeholder="0.00" required></ion-input>
+      </ion-item>
+      <div class="spacer" style="height:10;" id="registroDeCliente-spacer10"></div>
+      <ion-item id="registroDeCliente-input11"> 
+        <ion-label>
+          Adeuda: 
+        </ion-label>   
+        <ion-input type="text" [ngModel]="total" name="total"  ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" readonly ></ion-input>
+      </ion-item>
+      <div class="spacer" style="width:300px;height:44px;" id="registroDeCliente-spacer11"></div>
+      <button ion-button [disabled]="!formGuardar.form.valid" value="Guardar" ion-button color="positive" block>
+        Guardar
+       </button>
+    </ion-list> 
+  </form>
+</ion-content>

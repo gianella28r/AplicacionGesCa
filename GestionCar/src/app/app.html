@@ -1,0 +1,58 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar color="navega">
+      <ion-title>Menú
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <!--<button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </button>-->
+      <button menuClose ion-item *ngFor="let p of clientes" (click)="openPage(p)">
+        <ion-icon  name="contacts" item-right></ion-icon> <div class="titulo">{{p.title}}</div>
+      </button>
+
+      <button menuClose ion-item *ngFor="let p of productos" (click)="openPage(p)">
+        <div class="titulo">{{p.title}}</div>
+          <ion-icon   name="cart" item-right></ion-icon>
+      </button>
+
+      <button menuClose ion-item *ngFor="let p of notas" (click)="openPage(p)">
+        <div class="titulo">{{p.title}}</div>
+          <ion-icon  name="clipboard" item-right></ion-icon>
+      </button>
+
+      <button menuClose ion-item *ngFor="let p of dashboard" (click)="openPage(p)">
+        <div class="titulo">{{p.title}}</div>
+          <ion-icon name="stats" item-right></ion-icon>
+      </button>
+
+      <button menuClose ion-item *ngFor="let p of configuracion" (click)="openPage(p)">
+        <div class="titulo">{{p.title}}</div>
+        <ion-icon name="cog" item-right></ion-icon>
+      </button>
+
+      <button menuClose ion-item *ngFor="let p of ayuda" (click)="openPage(p)">
+        <div class="titulo">{{p.title}}</div>
+        <ion-icon name="help-circle" item-right></ion-icon>
+      </button>
+
+      <button menuClose ion-item *ngFor="let p of acerca" (click)="openPage(p)">
+        <div class="titulo">{{p.title}}</div>
+          <ion-icon name="information-circle" item-right></ion-icon>
+      </button>
+
+      <button menuClose ion-item *ngFor="let p of cerrar" (click)="cerrarPage(p)">
+        <div  class="titulo">{{p.title}}</div>
+          <ion-icon class="icono" name="power" item-right></ion-icon>
+      </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

@@ -1,0 +1,61 @@
+<!--
+  Generated template for the RegistroProductoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+
+  <button ion-button (click)="upload()" *ngIf="captureDataUrl">Upload to Firebase!</button>
+  <ion-row class="center">
+        <button ion-button (click)="goToSeleccionar(0)">Seleccionar imagen</button>  
+      </ion-row>
+-->
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>
+        Registro de Producto
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+
+  <ion-content padding id="page10">
+    <ion-card>
+      <img [src]="captureDataUrl" *ngIf="captureDataUrl"/>
+    </ion-card>
+          <ion-row padding >
+            <ion-col >
+              <div><button class="image-action-button"  ion-button outline round small (click)="goToSeleccionar(0)">Elegir imagen</button></div>
+            </ion-col >
+            <ion-col >
+              <div><button class="image-action-button"  ion-button outline round small (click)="goToTomarFoto()">Tomar Foto</button></div>
+            </ion-col >
+          </ion-row>
+          
+    <form #formGuardar="ngForm" (submit)="goToCrearProducto(formGuardar)"> 
+      <ion-item id="registroDeProducto-select4">
+        <ion-label>
+          Producto/Servicio :
+        </ion-label>
+        <ion-input [(ngModel)]="productos.nombre" type="text"  name="nombre" maxlength="70" required></ion-input>
+      </ion-item>
+  
+      <ion-item id="registroDeProducto-input25">
+        <ion-label>
+          Precio:
+        </ion-label>
+        <ion-input type="number"  [(ngModel)]="productos.precioVenta" maxlength="10" name="precioVenta" [value]=precio (ionChange)="transformar($event.value)" placeholder="" required></ion-input>
+      </ion-item>
+      <ion-item id="registroDeProducto-input26">
+        <ion-label stacked>
+          Descripción :
+        </ion-label>
+        <ion-textarea rows="3" [(ngModel)]="productos.descripcion" type="text" name="descripcion" placeholder=""></ion-textarea >
+      </ion-item>
+      <div class="spacer" style="width:300px;height:44px;" id="registroDeCliente-spacer11"></div>
+      <button ion-button [disabled]="!formGuardar.form.valid" value="Guardar" ion-button color="positive" block>
+        Guardar
+       </button>
+    </form>
+</ion-content>

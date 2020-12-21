@@ -1,0 +1,67 @@
+<!--
+  Generated template for the ReagendarPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation [selectedText]="selectedCodeValue".
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Reagendar Forma de Pago</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <form id=editarForm #formGuardar="ngForm" (submit)="goToRegistrarFormaPago(formGuardar)">
+        <ion-list>
+          <ion-item id="registroDeCliente-input7">
+            <ion-label>
+              Adeuda:
+            </ion-label>
+            <ion-input  type="text"   [(ngModel)]="idVentaTotal" name= "adeuda" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/"  readonly></ion-input>
+          </ion-item>
+          <div class="spacer" style="height:10;" id="registroDeCliente-spacer9"></div>       
+          <ion-item id="registroDeCliente-input10"> 
+            <ion-label>
+              Pago acordado :
+            </ion-label>
+            <ion-input type="number" [(ngModel)]= "pagoacor" g-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" maxlength="7" name="pagoAcordado" placeholder="0.00"[value]=pagoAcordado (ionChange)="pago($event.value)" required></ion-input>
+          </ion-item>
+          <div class="spacer" style="height:10;" id="registroDeCliente-spacer9"></div>
+          <ion-item id="registroDeCliente-input12">
+            <ion-label for="proximaFechaPago" >
+            Fecha de Próximo Pago :
+            </ion-label>
+            <ion-input id="proximaFechaPago" [(ngModel)]= "formaPago.proximaFechaPago" type="date" name="proximaFechaPago" placeholder="Establecer Fecha"  [value]=proximaFechaPago (ionChange)="fecha($event.value)" required></ion-input>
+          </ion-item>
+          <div class="spacer" style="height:10;" id="registroDeCliente-spacer10"></div>
+        </ion-list> 
+      </form>
+      <ion-item padding >   
+          <ion-label>Modalidad de Cobro:</ion-label>
+          <ion-select [(ngModel)]="itemSelected" placeholder="Seleccione" (ionChange)="capturarItem();" name="id" okText="Aceptar" cancelText="Cancelar" >
+            <ion-option *ngFor="let modalidad of modalidadC" [value]="modalidad">
+            {{modalidad}} 
+            </ion-option>
+          </ion-select>
+       </ion-item> 
+       <div class="spacer" style="height:20;" id="registroDeCliente-spacer9"></div>
+
+       <div *ngIf="mensaje!=''">
+         <p style="text-align: center;background-color:WhiteSmoke ">Plan de Cobros</p> 
+         <ion-item padding text-wrap style="text-align:justify;">   
+            {{mensajeFormaPago}}
+         </ion-item>  
+         <ion-item padding text-wrap>   
+             <ion-textarea   style="font-size:10px;" rows="10" type="text" [(ngModel)]= "mensaje" g-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" name="mensaje" readonly></ion-textarea>
+         </ion-item> 
+       </div>
+       
+      <div class="spacer" style="width:300px;height:44px;" id="registroDeCliente-spacer11"></div>
+      <button form="editarForm" type="submit"  [disabled]="!formGuardar.form.valid" value="Guardar" ion-button color="positive" block>
+        Guardar
+      </button>
+
+</ion-content>

@@ -1,0 +1,58 @@
+<!--
+  Generated template for the ProductosPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.text-wrap <div style="float:right;">
+                  <ion-icon (click)="goToEliminarProducto(producto)" name="trash" class="ed" ></ion-icon>
+                </div>
+-->
+<ion-header>
+  <ion-navbar color="navega">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+        Gestión de Productos
+    </ion-title>
+  </ion-navbar>
+  <div  class = "bar bar-subheader bar-assertive">
+      <ion-searchbar  (ionInput)="getItems($event)" placeholder="Buscar..." name="" id="productos-search5" ></ion-searchbar>
+  </div>
+</ion-header>
+  
+  
+  <ion-content padding id="page10">
+
+    <ion-list *ngFor="let producto of listaProductos" >
+        <ion-item text-wrap >
+            <ion-card>
+                <img (click)="editarProducto(producto.id)" class="img" src={{producto.image}} >
+                <ion-card-header (click)="editarProducto(producto.id)" style="background-color: white;" >
+                  <ion-card-title text-wrap style="color: #3171e0;" >  
+                  {{producto.nombre}}
+                  </ion-card-title>
+                  <ion-card-subtitle text-wrap><h1 style="color:#CD6155;">${{producto.precioTransformado}}</h1><br><h2 style="color: gray;text-align:justify;">{{producto.descripcion}}</h2> </ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content >
+                  <br>
+                <div style="float:left;">
+                    <button style="background-color: #488aff;" class="btn btn-primary btn-lg"  (click)="shareProducto(producto.nombre,producto.precioVenta,producto.descripcion,producto.idImagen)"><ion-icon name="share"></ion-icon>  Compartir</button>
+                </div> 
+                <div style="float:right;">
+                <ion-icon class="borra" name="trash" (click)="goToEliminarProducto(producto)" ></ion-icon> 
+                </div>                 
+                </ion-card-content>
+              </ion-card>  
+            </ion-item>
+            <div class="spacer" style="height:2;" id="registroDeVentas-spacer10"></div>
+    </ion-list>      
+</ion-content>
+
+<ion-footer> 
+  <ion-fab size="small" bottom right>
+    <button   ion-fab (click)="goToRegistroDeProducto()">
+      <ion-icon  name="add"> </ion-icon>
+    </button>          
+  </ion-fab>
+</ion-footer>
+  

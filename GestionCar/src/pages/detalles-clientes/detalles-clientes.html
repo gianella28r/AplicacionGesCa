@@ -1,0 +1,164 @@
+
+ <!--style="background-color:pink"-->
+
+ <!--
+  Generated template for the DetallesClientesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation. 
+-->
+<ion-header>
+  <ion-navbar color="navega">
+    <ion-title>Cuenta  
+      <div style="float:right" >
+      <ion-button style="float:right" (click)="goToEditarCliente(cliente.id)"><ion-icon class="edita" name="person"></ion-icon><ion-icon class="edita" name="more"></ion-icon></ion-button> &nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;<ion-button class="navega" style="float:left" (click)="goToReagendar()"><ion-icon  class="calendario" name="calendar"></ion-icon></ion-button>
+      </div>
+    </ion-title>
+  </ion-navbar>
+  <div  class = "bar bar-subheader bar-assertive">
+      <ion-item >
+          <h2><ion-icon name="person"  item-start >&nbsp;&nbsp;<b>{{cliente.nombres}}</b></ion-icon>
+              <button class="btn btn-primary btn-lg"  style="float:right;background-color:#CD6155;"  (click)="goToRegistroVentas()" >&nbsp;&nbsp;<b>Venta</b>&nbsp;&nbsp;</button> 
+          </h2> 
+          <h3> <b>Adeuda: </b> ${{cliente.adeuda}} <button class="btn btn-warning btn-lg" style="float:right;background-color:#488aff;"  (click)="goToRegistroPagoCliente()" >&nbsp;&nbsp;<b style="color:white;" >Pago</b>&nbsp;&nbsp;&nbsp;</button></h3>    
+      </ion-item>  
+      <p style="text-align: center;background-color: #4c8dff">Transacciones</p>  
+  </div>
+</ion-header>
+
+<ion-content padding id="page7" >
+      <ion-list  >
+        <div ion-item text-wrap *ngFor="let venta of ventas"  >
+            <div  style="float: right; width: 10px; height: 20px;" item-end>
+                <ion-icon  *ngIf="venta.id==idFinal" name="trash" class="borrar" item-start (click)="eliminarVenta(venta)"></ion-icon>
+            </div>
+          <div  padding *ngIf="venta.titulo=='Venta Credito'" >
+              <div style="float:left;" item-start>
+                    <ion-row >
+                        <ion-col class="ion-align-self-start">
+                          <div>
+                              <h6>{{venta.fechaCompra |date:'medium'}}&nbsp;&nbsp;<i><b>{{venta.titulo}}</b></i></h6>
+                          </div>
+                        </ion-col>
+                      </ion-row>
+                    <ion-row>
+                      <ion-col class="ion-align-self-start">
+                        <div>
+                          <h6><b>Producto:</b> {{venta.nombreProducto}}</h6> 
+                        </div>
+                      </ion-col>
+                      <ion-col class="ion-align-self-center">
+                        <div>
+                            <h6><b>Precio:</b> ${{venta.precio}}</h6>
+                        </div>
+                      </ion-col>
+                    </ion-row>
+  
+                    <ion-row>
+                      <ion-col class="ion-align-self-start">
+                        <div>
+                          <h6><b>Cantidad:</b> {{venta.cantidad}}</h6> 
+                        </div>
+                      </ion-col>
+                      <ion-col class="ion-align-self-center">
+                        <div >
+                            <h6><b>Total:</b> ${{venta.subTotal}}</h6>
+                        </div>   
+                      </ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col class="ion-align-self-start">
+                        <div>
+                            <h6><b>Anticipo:</b> ${{venta.anticipo}} </h6> 
+                        </div>
+                      </ion-col> 
+                        <ion-col class="ion-align-self-center">
+                          <div>
+                              <h6><b>Adeuda:</b> ${{venta.total}} </h6> 
+                          </div>
+                        </ion-col>                       
+                    </ion-row>
+        </div> 
+          
+        </div> 
+          <div padding *ngIf="venta.titulo=='Venta Contado'">
+            <div style="float:left;"  item-start >
+                <ion-row >
+                    <ion-col class="ion-align-self-start">
+                      <div>
+                          <h6>{{venta.fechaCompra|date:'medium'}}&nbsp;<i><b>{{venta.titulo}}</b></i></h6>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                <ion-row>
+                  <ion-col class="ion-align-self-start">
+                    <div>
+                      <h6><b>Producto:</b> {{venta.nombreProducto}}</h6> 
+                    </div>
+                  </ion-col>
+                  <ion-col class="ion-align-self-center">
+                    <div>
+                        <h6><b>Precio:</b> ${{venta.precio}}</h6>
+                    </div>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col class="ion-align-self-start">
+                    <div>
+                      <h6><b>Cantidad:</b> {{venta.cantidad}}</h6> 
+                    </div>
+                  </ion-col>
+                  <ion-col class="ion-align-self-center">
+                    <div >
+                        <h6><b>Total:</b> ${{venta.pago}} </h6>
+                    </div>   
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col class="ion-align-self-start">
+                      <div>
+                          <h6><b>Adeuda:</b> ${{venta.total}} </h6> 
+                      </div>
+                    </ion-col>                       
+                </ion-row>
+            </div>
+          </div>  
+          
+          <div padding *ngIf="venta.titulo=='Pago'">
+            <div style="float:left;"  item-start >
+                <ion-row >
+                    <ion-col class="ion-align-self-start">
+                      <div>
+                          <h6>{{venta.fechaCompra |date:'medium'}}&nbsp; &nbsp;<i><b>{{venta.titulo}}</b></i></h6>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                <ion-row>
+                  <ion-col class="ion-align-self-start">
+                    <div>
+                      <h6><b>Pago:</b> ${{venta.pago}} &nbsp;&nbsp;&nbsp;&nbsp;<b>Adeuda: </b>${{venta.total}}</h6> 
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </div>          
+        </div>
+      </div>
+      </ion-list>    
+  </ion-content>
+
+
+<ion-footer>
+    
+  <ion-fab bottom right>
+    <button  ion-fab ><ion-icon name="more"></ion-icon></button> 
+      <ion-fab-list side="left">
+        <button ion-fab (click)="goToLLamar()"><ion-icon class="s" name="call"></ion-icon></button> 
+        <button ion-fab (click)="goToNotas()"><ion-icon class="ss" name="clipboard"></ion-icon></button> 
+        <button ion-fab (click)="goToEnviarDatosVentas()"><ion-icon class="sss" name="share"></ion-icon></button> 
+      </ion-fab-list> 
+  </ion-fab>
+    
+</ion-footer>
+ 

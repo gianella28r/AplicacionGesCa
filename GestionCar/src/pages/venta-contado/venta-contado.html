@@ -1,0 +1,99 @@
+<!--
+  Generated template for the VentaContadoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Venta Contado</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<ion-content padding >
+  <ion-item *ngIf="productos!=0">
+    <ion-label>Añadir Producto(Opcional): </ion-label>
+      <ion-select [(ngModel)]="itemSelected"  (ionChange)="capturarItem();" name="id" okText="Aceptar" cancelText="Cancelar" >
+        <ion-option *ngFor="let producto of productos" [value]="producto">
+          {{producto.nombre}} &nbsp;&nbsp; ${{producto.precioTransformado}}
+        </ion-option>
+      </ion-select>
+  </ion-item>
+
+  <form #formGuardar="ngForm" (submit)="goToCrearVentaContado(formGuardar)">
+    <ion-list>
+    <div class="spacer" style="height:10;" id="registroDeVentasContado-spacer7"></div>
+      <ion-item id="registroDeVentasContado-input7">
+        <ion-label stacked>
+          Nombre del Producto/Servicio:
+        </ion-label>
+        <ion-input type="text" [(ngModel)]= "verSeleccion.nombre"  name="nombreProducto" maxlength="70" placeholder="" required></ion-input>
+      </ion-item>
+      <div class="spacer" style="height:10;" id="registroDeVentasContado-spacer7"></div>
+      <ion-item id="registroDeVentasContado-input9">
+        <ion-label>
+          Precio :
+        </ion-label>
+        <ion-input type="number" [(ngModel)]= "verSeleccion.precioVenta"  maxlength="9" name= "precio" [value]=precio (ionChange)="calcularPrecio($event.value)" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" placeholder="" required></ion-input>
+      </ion-item>
+
+      <div class="spacer" style="height:10;" id="registroDeVentas-spacer7"></div>
+        <ion-item id="registroDeVentasContado-input9">
+          <ion-label>
+            Cantidad :
+          </ion-label>
+          <ion-input type="number" [(ngModel)]= "cantidad" name="cantidad" [value]=cantidad maxlength="7" (ionChange)="calcularCantidad($event.value)"  max="1000"  ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" required></ion-input>
+        </ion-item>
+
+      <div class="spacer" style="height:10;" id="registroDeVentasContado-spacer9"></div>
+      <ion-item >
+        <ion-label>
+         Saldo Actual:
+        </ion-label>
+        <ion-input type="text" [(ngModel)]= "venta.total"  name="saldoActual" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" placeholder="0.00" readonly></ion-input>
+      </ion-item>
+      <div class="spacer" style="height:10;" id="registroDeVentasContado-spacer9"></div>
+      <ion-item >
+        <ion-label>
+        Total a Pagar:
+        </ion-label>
+        <ion-input type="text" [(ngModel)]= "subTotal"  name="pago" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" placeholder="0.00" readonly></ion-input>
+      </ion-item>
+      <div class="spacer" style="height:10;" id="registroDeVentasContado-spacer9"></div>
+      <ion-item >
+        <ion-label>
+        Adeuda:
+        </ion-label>
+        <ion-input type="text" [ngModel]= "venta.total"  ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" name="total" placeholder="0.00" readonly></ion-input>
+      </ion-item>
+      <div class="spacer" style="width:300px;height:44px;" id="registroDeVentasContado-spacer11"></div>
+      <button ion-button [disabled]="!formGuardar.form.valid" value="Guardar" ion-button color="positive" block>
+        Guardar
+       </button>
+    </ion-list> 
+  </form>
+</ion-content>
+
+<!--
+<ion-item>
+     <ion-label>Autocompletar</ion-label>
+    <ion-select>
+      <ion-option value="{{productos.nombreProducto}}" *ngFor="let producto of productos">{{producto.nombreProducto}}</ion-option>
+   </ion-select>
+        </ion-item>
+
+<ion-label>Users0</ion-label>
+        <button ion-item *ngFor="let item of productos" (click)="itemSelected(item)">
+      {{ item.nombreProducto }}
+    </button>
+
+    <ion-list-header>producto as productos (compareWith)</ion-list-header>
+<ion-select [compareWith]="compareWith">
+  <ion-select-option *ngFor="let producto of productos">{{producto.nombreProducto+ ' ' + producto.precio}}</ion-select-option>
+</ion-select>
+
+-->

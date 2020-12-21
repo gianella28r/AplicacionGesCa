@@ -1,0 +1,40 @@
+<!--
+  Generated template for the CambiarCorreoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Cambiar Correo Eléctronico</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #signUpForm="ngForm" (submit)="goToCambiarEmail()">
+    <ion-list>
+      <ion-item>
+        <ion-label stacked>Correo Eléctronico Actual</ion-label>
+        <ion-input [(ngModel)]="correoActual" name="correoActual" type="email" maxlength="70" autocorrect="off" autocapitalize="none"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Contraseña</ion-label>
+        <ion-input [(ngModel)]="passwordActual" type="password"  name="passwordActual" maxlength="70" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Correo Eléctronico Nuevo</ion-label>
+        <ion-input [(ngModel)]="correoNuevo" type="email" autocorrect="off" autocapitalize="none" maxlength="70" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required></ion-input>
+      </ion-item>
+
+          <div padding-left padding-right padding-top>
+              <button ion-button [disabled]="!signUpForm.form.valid" block>Guardar</button>
+          </div>
+      </ion-list>
+  </form>
+
+</ion-content>

@@ -1,0 +1,57 @@
+<!--
+  Generated template for the EditarProductoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Editar Producto
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-card>
+      <img [src]="captureDataUrl" *ngIf="captureDataUrl"/>
+    </ion-card>
+      <ion-row padding >
+          <ion-col >
+            <div><button class="image-action-button"  ion-button outline round small (click)="goToSeleccionar(0)">Elegir imagen</button></div>
+          </ion-col >
+          <ion-col >
+            <div><button class="image-action-button"  ion-button outline round small (click)="goToTomarFoto()">Tomar Foto</button></div>
+          </ion-col >
+      </ion-row>
+    
+  <form #formModificar="ngForm" (ngSubmit)="modificarProducto(formModificar)">
+      <ion-item >
+        <ion-label>
+          Producto/Servicio:
+        </ion-label>
+      <ion-input  type="text" [(ngModel)]= "producto.nombre" name="nombre" placeholder="" maxlength="70" required></ion-input>
+      </ion-item>
+      <div class="spacer" style="height:10;" id="registroDeCliente-spacer7"></div>
+      <ion-item id="registroDeCliente-input9">
+        <ion-label>
+          Precio :
+        </ion-label>
+        <ion-input type="number"  [(ngModel)]= "producto.precioVenta"   maxlength="7" name= "precioVenta" [value]=precio (ionChange)="transformar($event.value)" placeholder="" required></ion-input>
+      </ion-item>
+      <div class="spacer" style="height:10;" id="registroDeCliente-spacer9"></div>
+      <ion-item id="registroDeCliente-input10">
+        <ion-label>
+          Descripción:
+        </ion-label>
+        <ion-input  type="text" [(ngModel)]= "producto.descripcion"  name="descripcion" placeholder=""></ion-input>
+      </ion-item>
+          
+      <div class="spacer" style="width:300px;height:44px;" id="registroDeCliente-spacer11"></div>
+      <button type="ngSubmit" [disabled]="!formModificar.form.valid" value="Modificar" ion-button color="positive" block>
+        Modificar
+       </button>
+  </form>
+</ion-content>

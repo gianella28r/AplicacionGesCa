@@ -1,0 +1,57 @@
+<!--
+  Generated template for the RegistroClientesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Registro cliente</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding id="page7">
+  <form #formGuardar="ngForm" (submit)="goToCrearCliente(formGuardar)">
+    <ion-list>
+      <ion-item id="registroDeCliente-input7">
+        <ion-label stacked>
+          Nombres y Apellidos:
+        </ion-label>
+      <ion-input [(ngModel)]= "clientes.nombres" type="text" autocapitalize="words" name="nombres" maxlength="70" placeholder="" required></ion-input>
+      </ion-item>
+      <div class="spacer" style="height:10;" id="registroDeCliente-spacer7"></div>
+      <ion-item id="registroDeCliente-input9">
+        <ion-label stacked>
+          Dirección :
+        </ion-label>
+        <ion-input [(ngModel)]= "clientes.direccion"  type="text" cl0ass="form-control" name= "direccion" maxlength="100" placeholder=""></ion-input>
+      </ion-item>
+      <div class="spacer" style="height:10;" id="registroDeCliente-spacer9"></div>
+      <ion-item id="registroDeCliente-input10">
+        <ion-label stacked>
+          Celular/Teléfono :
+        </ion-label>
+        <ion-input [(ngModel)]= "clientes.telefono" type="tel"  name="telefono" maxlength="10" placeholder=""></ion-input>
+      </ion-item>
+      <div class="spacer" style="height:10;" id="registroDeCliente-spacer10"></div>
+      <ion-item id="registroDeCliente-input11">
+        <ion-label stacked>
+          Correo electrónico (Opcional):
+        </ion-label>
+        <ion-input [(ngModel)]= "clientes.email" type="email" name="email" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" maxlength="100"></ion-input>
+      </ion-item>
+      <div class="spacer" style="height:10;" id="registroDeCliente-spacer8"></div>
+      <ion-item id="registroDeCliente-input12">
+        <ion-label stacked>
+          Observaciones (Opcional) :
+        </ion-label>
+        <ion-input [(ngModel)]= "clientes.observaciones" type="text"  name="observaciones" placeholder=""></ion-input>
+      </ion-item>
+      <div class="spacer" style="width:300px;height:44px;" id="registroDeCliente-spacer11"></div>
+      <button color="secondary"  ion-button [disabled]="!formGuardar.form.valid" value="Guardar" ion-button color="positive" block>
+        Guardar
+       </button>
+    </ion-list> 
+  </form>
+</ion-content>
+ 

@@ -1,0 +1,300 @@
+<!--
+  Generated template for the DashboardPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="navega">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Tablero de Control</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class=pa>
+    <div class="ion-padding">
+      <ion-card>
+        <ion-card-header class="info" style="background-color: white;">
+        <b> Información General </b> 
+        </ion-card-header>
+        <ion-card-content class="cont" >
+          <ion-grid padding>
+          <ion-row class="fila1">
+            <ion-col class="ion-align-self-center">
+              <div class=y (click)="goToClientes()">
+              <div class=cli style="text-align:center;">
+                <h2 class=ventaletra><ion-icon name="person" item-start class="v"></ion-icon> Clientes</h2>     
+              </div>
+              <div class=cli style="text-align:center;">
+                <h1 class=v><b>{{dashboard.contadorClientes}}</b></h1>       
+              </div>
+            </div>
+            </ion-col>
+            <ion-col class="ion-align-self-center">
+                <div class=y>
+              <div class=ve  style="text-align:center;">
+                <h2 class=ventaletra><ion-icon name="pricetags" item-start class="ve"></ion-icon> Ventas</h2>     
+              </div>
+              <div class=ve style="text-align:center;">
+                  <h1 class=ve><b>{{dashboard.contadorVentas}}</b></h1>       
+                </div>
+                </div>
+            </ion-col>
+            <ion-col class="ion-align-self-center">
+                <div class=y >
+              <div class=co style="text-align:center;">
+                <h2 class=ventaletra><ion-icon name="cash" item-start class="ven"></ion-icon> Cobros</h2>
+              </div>
+              <div class=co style="text-align:center;">
+                  <h1 class=ven><b>{{dashboard.contadorCobros}}</b></h1>       
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="fila1">
+              <ion-col class="ion-align-self-center">
+                  <div class=y (click)="goToProductos()">
+                <div class=pro style="text-align:center;">
+                  <h2 class=ventaletra><ion-icon name="cart" item-start class="vent"></ion-icon> Productos</h2>     
+                </div>
+                <div class=pro style="text-align:center;">
+                    <h1 class=vent><b>{{dashboard.contadorProductos}}</b></h1>       
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col class="ion-align-self-center">
+                  <div class=y (click)="goToNotas()">
+                <div class=no style="text-align:center;">
+                  <h2 class=ventaletra><ion-icon name="clipboard" item-start class="nota"></ion-icon> Notas</h2>     
+                </div>
+                <div class=no style="text-align:center;">
+                    <h1 class=nota><b>{{dashboard.contadorNotas}}</b></h1>       
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+     <!-- <ion-card>
+          <ion-card-header>
+            <ion-item padding >   
+              <ion-label>Modalidad de Cobro:</ion-label>
+                <ion-select [(ngModel)]="itemSelected" placeholder="Seleccione" (ionChange)="capturarItem();" name="id" okText="Aceptar" cancelText="Cancelar" >
+                  <ion-option *ngFor="let modalidad of modalidadC" [value]="modalidad">
+                    {{modalidad.titulo}} 
+                  </ion-option>
+                </ion-select>
+              </ion-item>
+          </ion-card-header>
+          <ion-card-content>
+           
+          </ion-card-content>
+      </ion-card>  <ion-card >
+        <ion-card-header>
+          Bar Chart
+        </ion-card-header>
+        <ion-card-content >
+          <canvas #barCanvas></canvas>
+        </ion-card-content>
+    </ion-card>-->
+      <ion-card>
+          <ion-card-header class="info" style="background-color: white;">
+          <b> Balance de Cartera</b> 
+          </ion-card-header>
+          <ion-card-content style="background-color: white;">
+            <br>
+              <ion-grid padding style="text-align:center;">
+                  <ion-row>
+                      <ion-col class="ion-align-self-start">
+                          <div class="venta">
+                              <h3 class="vendido"><ion-icon name="cash" item-start class="vendidos"></ion-icon> Total importe Vendido</h3>  
+                              <h2 class="vendidos"><b>${{dashboard.totalVendido}}</b></h2>
+                          </div>
+                        </ion-col>
+                  </ion-row>
+                  <ion-row >
+                    <ion-col class="ion-align-self-start">
+                      <div class="cobro">
+                        <h3 class="cobrado"> <ion-icon name="cash" class="cobrados" item-start></ion-icon> Total importe</h3>  
+                        <h3 class="cobrado">Cobrado</h3>   
+                        <h2 class="cobrados"><b>${{dashboard.totalCobrado}}</b></h2>  
+                      </div>
+                    </ion-col>
+                    <ion-col class="ion-align-self-end">
+                      <div class="recauda">
+                        <h3 class="recaudado"><ion-icon name="cash" class="recaudados" item-start></ion-icon> Total importe </h3>  
+                        <h3 class="recaudado">por Cobrar</h3>  
+                        <h2 class="recaudados"><b>${{recaudacion}}</b></h2>  
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                  </ion-grid>
+            <canvas #doughnutCanvas></canvas>
+        </ion-card-content>
+      </ion-card>
+
+      
+
+      <ion-card>
+          <ion-card-header class="info" style="background-color: white;">
+        <b>  Estado de cuentas por cobrar</b>
+          </ion-card-header>
+          <ion-card-content>
+
+            <ion-grid padding>
+              <ion-row>
+                  <ion-col class="ion-align-self-center">
+                      <div class=y (click)="goToCuentasCobrar()">
+                    <div class=ve  style="text-align:center;">
+                      <h2 class=ventaletra><ion-icon name="copy" item-start class="ve"></ion-icon> Cuentas por Cobrar</h2>     
+                    </div>
+                    <div class=ve style="text-align:center;">
+                        <h1 class=ve><b>{{contadorCuentasCo}}</b></h1>       
+                      </div>
+                      </div>
+                  </ion-col>
+              </ion-row>
+             
+              <ion-row>
+                  <ion-col class="ion-align-self-center">
+                      <div class=y  (click)="goToCuentasAllCorriente()">
+                    <div class=co style="text-align:center;">
+                      <h2 class=ventaletra><ion-icon name="copy" item-start class="ven"></ion-icon> Al Corriente</h2>
+                    </div>
+                    <div class=co style="text-align:center;">
+                        <h1 class=ven><b>{{contadorCorriente}}</b></h1>       
+                      </div>
+                    </div>
+                  </ion-col>
+
+                 
+
+                  <ion-col class="ion-align-self-center">
+                      <div class=y (click)="goToCuentasAllProximas()">
+                    <div class=pro style="text-align:center;">
+                      <h2 class=ventaletra><ion-icon name="copy" item-start class="vent"></ion-icon> Próximos</h2>     
+                    </div>
+                    <div class=pro style="text-align:center;">
+                        <h1 class=vent><b>{{contadorProximos}}</b></h1>       
+                      </div>
+                    </div>
+                  </ion-col>
+              </ion-row>
+
+              <ion-row>
+                  <ion-col class="ion-align-self-center">
+                      <div class=y (click)="goToCuentasAllPorVencer()">
+                    <div class=no style="text-align:center;">
+                      <h2 class=ventaletra><ion-icon name="copy" item-start class="nota"></ion-icon> Por Vencer</h2>     
+                    </div>
+                    <div class=no style="text-align:center;">
+                        <h1 class=nota><b>{{contadorPorVencer}}</b></h1>       
+                      </div>
+                    </div>
+                  </ion-col>
+                  <ion-col class="ion-align-self-center">
+                      <div class=y (click)="goToCuentasAllVencidas()">
+                          <div class=cc style="text-align:center;">
+                              <h2 class=ventaletra><ion-icon name="copy" item-start class="nota"></ion-icon> Vencidos</h2>
+                         </div>
+                        <div class=cc style="text-align:center;">
+                            <h1 class=nota><b>{{contadorVencidos}}</b></h1>      
+                        </div>
+                    </div>
+                  </ion-col>
+              </ion-row>
+           </ion-grid>
+          </ion-card-content>
+        </ion-card>
+  
+
+      <ion-card>
+        <ion-card-header class=info style="background-color: white;">
+          <b>  Ventas y Cobros de Hoy</b> 
+        </ion-card-header>
+        <ion-card-content>
+          <canvas #barCanvas></canvas>
+        </ion-card-content>
+      </ion-card>
+
+        <ion-card>
+            <ion-card-header class=info style="background-color: white;">
+            <b> Top 5 mayores Deudores</b> 
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list *ngIf="clientes!=0 ">
+                <br>
+                <ion-grid padding class=table  >
+                <ion-row class=filas >
+                    <ion-col class="colum" >
+                        <div class="nombres">
+                          <h2 class="c"><b>Cliente</b></h2>   
+                        </div>
+                      </ion-col>
+                      <ion-col class="colum" >
+                        <div class="adeuda">
+                          <h2 class="c"><b>Adeuda</b></h2>  
+                        </div>
+                      </ion-col>
+                 </ion-row>
+                     
+                    <ion-row class=fila *ngFor="let cliente of clientes">
+                        <ion-col class="columna" *ngIf="cliente.adeuda!=0">
+                            <div class="nombres">
+                              <h3 class="cletra">{{cliente.nombres}}</h3>   
+                            </div>
+                          </ion-col>
+                          <ion-col class="columna"  *ngIf="cliente.adeuda!=0">
+                            <div class="adeuda" style="float:left;" >
+                              <h3 class="cletra" item-start>${{cliente.adeuda}} </h3>  
+                            </div>
+                            <div  style="float:right" >
+                                <ion-icon name="eye" class= "notc" item-end (click)="editarCliente(cliente.id)"></ion-icon>
+                            </div >
+                          </ion-col>
+                    </ion-row>
+                  </ion-grid>
+              </ion-list>     
+              <h2 *ngIf=" contadorCuentasCo==0" style="color: gray;float:center;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  No existen Deudores</h2>     
+                 
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+          <ion-card-header class=info style="background-color: white;">
+          <b> Existen {{contadorNo}} nota(s) para hoy</b> 
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list *ngIf="notas!=0">
+                <ion-grid padding class=tablenota >
+                    <ion-row class=filaNo>
+                        <ion-col class="columntitulo" >
+                            <div class="titulo">
+                              <h2 class="t"><b>Notas </b></h2>   
+                            </div>
+                          </ion-col>
+                     </ion-row>
+                         
+                        <ion-row class=filaN *ngFor="let nota of notas">
+                            <ion-col class="columnan">
+                                <div class="nombres" style="float:left;width: 85%;">
+                                  <h3 class="nletra" item-start><b class=notatitulo2>{{nota.titulo}}</b> {{nota.descripcion}} </h3>   
+                                </div>
+                                <div style="float:right;text-align:justify;width: 15%;" >
+                                  <ion-icon class="create" name="create" style="float:left;" item-start (click)="editarNota(nota.id)"></ion-icon>
+                                   <ion-icon name="close" class= "borrar" style="float:right;" item-end (click)="eliminarNota(nota)"></ion-icon>
+                                </div>
+                              </ion-col>
+                        </ion-row>
+                      </ion-grid>
+             
+            </ion-list>    
+            <h2 *ngIf="notas==0" style="color: gray;float:center;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  No existen Notas</h2>    
+          </ion-card-content>
+      </ion-card>
+  </div>
+</ion-content>

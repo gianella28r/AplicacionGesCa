@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-navbar >
+        <ion-title>Registrarse</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <form #signUpForm="ngForm" (submit)="goToCrearCuenta()">
+        <ion-list>
+            <ion-item>
+                <ion-label stacked>Nombres y Apellidos</ion-label>
+                <ion-input [(ngModel)]="usuario.nombres" type="text"  autocapitalize="words" maxlength="70" name="nombres" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Correo electrónico</ion-label>
+                <ion-input [(ngModel)]="usuario.email" type="email" autocorrect="off" autocapitalize="none" maxlength="100" name="email"  pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label stacked>Contraseña (Debe tener 6 caracteres mínimo)</ion-label>
+                <ion-input [(ngModel)]="usuario.password" type="password" name="password" required minlength="6" maxlength="100"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label stacked> Confirmación de contraseña </ion-label>
+                <ion-input [(ngModel)]="passwordDos" type="password" name="passwordDos" required minlength="6" maxlength="100"></ion-input>
+            </ion-item>
+            <div padding-left padding-right padding-top>
+                <button ion-button [disabled]="!signUpForm.form.valid" block>Registrarse</button>
+            </div>
+        </ion-list>
+    </form>
+</ion-content>
+
+

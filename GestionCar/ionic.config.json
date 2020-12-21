@@ -1,0 +1,7 @@
+{
+  "name": "GestionC",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

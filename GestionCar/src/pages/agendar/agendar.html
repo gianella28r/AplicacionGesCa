@@ -1,0 +1,99 @@
+<!--
+  Generated template for the AgendarPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Agendar Forma de Pago</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<ion-content padding>
+  <form id=CreateForm #formGuardar="ngForm" (submit)="goToRegistrarFormaPago(formGuardar)">
+      <ion-list>
+        <ion-item id="registroDeCliente-input7">
+          <ion-label>
+            Adeuda:
+          </ion-label>
+          <ion-input  type="text"   [(ngModel)]="idVentaTotal" name= "adeuda" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/"  readonly></ion-input>
+        </ion-item>
+        <div class="spacer" style="height:10;" id="registroDeCliente-spacer9"></div>
+        <ion-item id="registroDeCliente-input10">
+          <ion-label>
+            Pago acordado :
+          </ion-label>
+          <ion-input type="number" [(ngModel)]= "pagoUnico" g-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" maxlength="10" name="pagoAcordado" placeholder="0.00" [value]=pagoAcordado (ionChange)="pago($event.value)" required></ion-input>
+        </ion-item>
+        <div class="spacer" style="height:10;" id="registroDeCliente-spacer9"></div>
+        <ion-item id="registroDeCliente-input12">
+          <ion-label for="proximaFechaPago" >
+          Fecha de Próximo Pago :
+          </ion-label>
+          <ion-input id="proximaFechaPago" [(ngModel)]= "formaPagos.proximaFechaPago" type="date" name="proximaFechaPago"  [value]=proximaFechaPago (ionChange)="fecha($event.value)" required></ion-input>
+        </ion-item>
+        <div class="spacer" style="height:10;" id="registroDeCliente-spacer10"></div>
+      </ion-list> 
+    </form>
+    <ion-item padding >   
+      <ion-label>Modalidad de Cobro:</ion-label>
+      <ion-select [(ngModel)]="itemSelected" placeholder="Seleccione" (ionChange)="capturarItem();" name="id" okText="Aceptar" cancelText="Cancelar">
+        <ion-option *ngFor="let modalidad of modalidadC" [value]="modalidad" required>
+        {{modalidad.titulo}} 
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <div class="spacer" style="height:20;" id="registroDeCliente-spacer9"></div>
+
+      <div *ngIf="mensaje!=''">
+
+        <p style="text-align: center;background-color:WhiteSmoke ">Plan de Cobros</p>
+        <ion-item padding text-wrap style="text-align:justify;">   
+           {{mensajeFormaPago}}
+        </ion-item>
+       
+        <ion-item padding text-wrap >   
+            <ion-textarea   style="font-size:10px;" rows="13" type="text" [(ngModel)]= "mensaje" g-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" name="mensaje" readonly></ion-textarea>
+        </ion-item>
+        
+      <!-- ++++ {{formato|json}}     {{goodResponse}}
+      <ion-item padding text-wrap *ngFor="let forma of formato; let i = index">   
+          {{forma[i].fecha}}  
+        </ion-item> -->
+      </div>
+    <div class="spacer" style="width:300px;height:44px;" id="registroDeCliente-spacer11"></div>
+    <button form="CreateForm" type="submit"  [disabled]="!formGuardar.form.valid" value="Guardar" ion-button color="positive" block>
+      Guardar
+    </button>
+</ion-content>
+
+<!--<ion-item id="registroDeCliente-input11"> 
+          <ion-label>
+            Modalidad Cobro: 
+          </ion-label>   
+          <ion-input type="text" [ngModel]="venta.modalidadCobro"  name="modalidadCobro"></ion-input>
+        </ion-item>
+        <ion-item >   
+          <ion-label>Modalidad de Cobro:</ion-label>
+          <ion-select [(ngModel)]="itemSelected"  (ionChange)="capturarItem();" name="id" okText="Aceptar" cancelText="Cancelar" >
+            <ion-option *ngFor="let modalidad of modalidadC" [value]="modalidad">
+            {{modalidad.titulo}} 
+            </ion-option>
+          </ion-select>
+         </ion-item>
+
+
+         <ion-label>Modalidad</ion-label>
+          <ion-select [modalidadC]="modalidadC" >
+            <ion-select-option value="Unico Pago">Unico Pago</ion-select-option>
+            <ion-select-option value="Diario">Diario</ion-select-option>
+            <ion-select-option value="Semanal">Semanal</ion-select-option>
+            <ion-select-option value="Quincenal">Quincenal</ion-select-option>
+            <ion-select-option value="Mensual">Mensual</ion-select-option>
+          </ion-select>
+        </ion-item>-->

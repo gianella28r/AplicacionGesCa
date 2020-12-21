@@ -1,0 +1,230 @@
+page-dashboard {
+    .cli{
+        //background-color: #4CAF50;
+        background-color:#6C3483 ;
+    }
+
+    .ve{
+       //background-color:#36A2EB;
+       background-color: #21618C;
+        
+    }
+
+    .co{
+        //background-color:#FFCE56 ;
+        background-color:  #3171e0;
+        
+    }
+    .pro{
+        background-color:  #239B56;
+
+
+    }
+
+    .no{
+        background-color:  #F1C40F;
+    }
+  
+  
+     canvas  {
+        height: 500px;
+     }
+     .venta{
+        background-color:white;
+        border: 1px solid #ddd;
+        color:  black;
+        padding: 3px;
+        border-collapse: collapse;
+       
+     }
+     .cobro{
+        background-color:white;
+        border: 1px solid #ddd;
+        color:  black;
+        padding: 3px;
+        border-collapse: collapse;
+        
+        
+     }
+     .recauda{
+        background-color:white;
+        border: 1px solid #ddd;
+        color:  black;
+        padding: 3px;
+        border-collapse: collapse;
+     }
+    .ventaletra
+    {
+        //font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color:white;
+    }
+     .info{
+         color:#3171e0;
+        
+     }
+    .v
+    {
+        //font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color:white;
+    }
+
+    .ve
+    {
+        //font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color:white;
+    }
+
+    .ven
+    {
+        //font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color:white;
+    }
+    .vent
+    {
+        //font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color:white;
+    }
+
+    .nota
+    {
+        //font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color:white;
+    }
+
+    .cont{
+        background-color:white;
+    }
+
+    .vendido{
+        color:gray;
+    }
+    .cobrado{
+        color:gray;
+    }
+
+    .recaudado{
+       color:gray;
+    }
+
+    .vendidos{
+        color:#21618C;
+    }
+    .cobrados{
+        color:#488aff;
+    }
+
+    .recaudados{
+        color:#EC7063;
+    }
+ 
+    .table {
+        //font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+       
+    }
+      
+      .table  .columna, .table .colum {
+        border: 1px solid #ddd;
+        padding: 8px;
+       border-left:none;
+        border-right: none;
+        
+      }
+    .pa{
+        background-color: #EBF5FB;
+    }
+      
+   
+     
+      
+      .table .fila:nth-child(even){background-color: white;}
+      
+      .table .fila:hover {background-color: #E8DAEF;}
+      
+      .table .colum {
+       
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #488aff;
+        color: white;
+      }
+      .c{
+          color:white;
+      }
+      .cletra{
+        color:gray;
+      }
+      //tablanotas
+
+
+      .tablenota {   
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      .tablenota  .columnan, .tablenota .columnatitulo {
+        border: 1px solid #ddd;
+        padding: 8px;
+        border-left:none;
+        border-right: none;
+        
+      }
+
+      .tablenota .filaN:nth-child(even){background-color: white;}
+      
+      .tablenota .filaN:hover {background-color: #FCF3CF;}
+      
+      .tablenota .columntitulo{
+       
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #F1C40F;
+        color: white;
+      }
+      
+
+     .nletra{
+        color:gray;
+     }
+
+     .t{
+       color: white;
+     }
+
+     .noti{
+        font-size: 25px; 
+        color:gray;
+     }
+
+     .notc{
+        font-size: 25px; 
+        color:gray;
+     }
+
+     
+     .notatitulo2{
+         color: #D4AC0D;
+     }
+
+     .create{
+        font-size: 22px; 
+         color:gray;
+
+     }
+
+     .borrar{
+        font-size: 25px; 
+        color:gray;
+        
+    }
+
+    .cc{
+       background-color: #EC7063;
+    }
+    
+
+     
+}

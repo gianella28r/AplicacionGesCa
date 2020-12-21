@@ -1,0 +1,69 @@
+<!--
+  Generated template for the RegistroNotasUsuariosPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+      <ion-title>Nueva Nota</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  
+  <ion-content padding id="page7">
+  <ion-item *ngIf="clientes!=0">
+    <ion-label>Añadir Cliente (Opcional):</ion-label>
+       <ion-select [(ngModel)]="itemSelected"  (ionChange)="capturarItem();" name="id" okText="Aceptar" cancelText="Cancelar" >
+          <ion-option *ngFor="let cliente of clientes" [value]="cliente">
+             {{cliente.nombres}} 
+          </ion-option>
+        </ion-select>
+  </ion-item>      
+
+    <form id=CreateForm #formGuardar="ngForm" (submit)="goToCrearNota(formGuardar)">
+      <ion-list>
+        <ion-item >
+          <ion-label stacked>
+            Titulo:
+          </ion-label>
+        <ion-input [(ngModel)]= "notas.titulo" type="text" name="titulo" maxlength="50" placeholder="" required></ion-input>
+        </ion-item>
+        <div class="spacer" style="height:10;" id="registroDeNota-spacer7"></div>
+        <ion-item id="registroDeCliente-input9">
+          <ion-label stacked>
+            Nota :
+          </ion-label>
+          <ion-textarea rows="4" [(ngModel)]= "notas.descripcion"  type="text"  name= "descripcion" placeholder=""></ion-textarea>
+        </ion-item>  
+        <div class="spacer" style="width:300px;height:0 px;" id="registroDeCliente-spacer11"></div>
+      <ion-item> 
+      <ion-label for="fechaAviso" >
+          Recordatorio :
+      </ion-label>
+        <ion-input id="fechaAviso" [(ngModel)]= "notas.fechaAviso" type="date" name="fechaAviso" placeholder="Establecer Fecha"></ion-input>
+      </ion-item> 
+      <div class="spacer" style="width:300px;height:0 px;" id="registroDeCliente-spacer11"></div>
+    </ion-list> 
+  </form>
+  <ion-item padding>
+          <ion-row padding >
+            <ion-col >
+              <div>Imagen: &nbsp;&nbsp;<button class="image-action-button"  ion-button outline round default  (click)="goToSeleccionar(0)">&nbsp;&nbsp;<ion-icon name="image"></ion-icon>&nbsp;&nbsp;</button></div>
+            </ion-col >
+            <ion-col >
+              <div><button class="image-action-button"  ion-button outline round default (click)="goToTomarFoto()">&nbsp;&nbsp;<ion-icon name="camera"></ion-icon>&nbsp;&nbsp;</button></div>
+            </ion-col >
+          </ion-row>
+        <ion-card>
+          <img [src]="captureDataUrl" *ngIf="captureDataUrl"/>
+        </ion-card>
+  </ion-item>
+        <button  form="CreateForm" type="submit" [disabled]="!formGuardar.form.valid" value="Guardar" ion-button color="positive" block>
+          Guardar
+      </button>
+  
+  </ion-content>
+   

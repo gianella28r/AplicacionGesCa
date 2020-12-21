@@ -1,0 +1,238 @@
+<!--
+  Generated template for the VentaCreditoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"    <ion-input type="text" [ngModel]="ventas.total++verSeleccion.precioVenta++venta.total-ventas.anticipo"  ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" name="total" readonly ></ion-input>
+-->
+<ion-header>
+
+    <ion-navbar>
+      <ion-title>Venta a Crédito</ion-title>
+    </ion-navbar>
+    
+  </ion-header>
+    
+    
+    <ion-content padding >
+      <ion-item *ngIf="productos!=0">
+        <ion-label>Añadir Producto(Opcional): </ion-label>
+          <ion-select [(ngModel)]="itemSelected"  (ionChange)="capturarItem();" name="id" okText="Aceptar" cancelText="Cancelar" >
+            <ion-option *ngFor="let producto of productos" [value]="producto">
+              {{producto.nombre}} &nbsp;&nbsp; ${{producto.precioTransformado}}
+            </ion-option>
+          </ion-select>
+      </ion-item>
+      
+      <form  #formGuardar="ngForm" (submit)="goToCrearVentaCredito(formGuardar)">
+        <ion-list>
+        <div class="spacer" style="height:10;" id="registroDeVentasContado-spacer7"></div>
+          <ion-item id="registroDeVentas-input7">
+            <ion-label stacked>
+              Nombre del Producto/Servicio:
+            </ion-label>
+          <ion-input type="text" [(ngModel)]= "verSeleccion.nombre"  name="nombreProducto" maxlength="70" placeholder="" required></ion-input>
+          </ion-item>
+
+          <div class="spacer" style="height:10;" id="registroDeVentas-spacer7"></div>
+          <ion-item id="registroDeVentasContado-input9">
+              <ion-label>
+                Precio :
+              </ion-label>
+              <ion-input type="number" [(ngModel)]= "verSeleccion.precioVenta" name="precio" maxlength="9" [value]=precio (ionChange)="calcularPrecio($event.value)" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" placeholder="0.00" required></ion-input>
+          </ion-item>
+
+          <div class="spacer" style="height:10;" id="registroDeVentas-spacer7"></div>
+          <ion-item id="registroDeVentasContado-input9">
+            <ion-label>
+              Cantidad :
+            </ion-label>
+            <ion-input type="number" [(ngModel)]= "cantidad" name="cantidad" [value]=cantidad maxlength="7" (ionChange)="calcularCantidad($event.value)" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/"  required></ion-input>
+          </ion-item>
+
+          <div class="spacer" style="height:10;" id="registroDeVentas-spacer7"></div>
+          <ion-item id="registroDeVentasContado-input9">
+            <ion-label>
+              Total :
+            </ion-label>
+            <ion-input type="text" [(ngModel)]= "subTotal" name="subTotal" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" readonly></ion-input>
+          </ion-item>
+
+          <div class="spacer" style="height:10;" id="registroDeVentas-spacer9"></div>
+          <ion-item id="registroDeVentas-input10">
+            <ion-label position="stacked">
+              Saldo Actual :
+            </ion-label>
+            <ion-input type="text" [(ngModel)]= "venta.total"   name="saldoActual" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" placeholder="0.00" readonly></ion-input>
+          </ion-item>
+
+          <div class="spacer" style="height:10;" id="registroDeVentas-spacer9"></div>
+          <ion-item id="registroDeVentas-input10">
+            <ion-label position="stacked">
+              Anticipo :
+            </ion-label>
+            <ion-input type="number"  [(ngModel)]= "anticipo"  name="anticipo"  maxlength="7" [value]=anticipo (ionChange)="calcularA($event.value)" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" placeholder="0.00" required></ion-input>
+          </ion-item>
+
+          <div class="spacer" style="height:10;" id="registroDeVentas-spacer10"></div>
+          <ion-item >  
+            <ion-label>
+              Adeuda:
+            </ion-label>
+            <ion-input type="text" [ngModel]="total"  name="total"  ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" readonly ></ion-input>
+          </ion-item>         
+         
+          <div class="spacer" style="width:300px;height:44px;" id="registroDeCliente-spacer11"></div>
+          <button ion-button [disabled]="!formGuardar.form.valid"  value="Guardar" ion-button color="positive" block>
+            Guardar
+           </button>
+        </ion-list> 
+    
+      </form>
+    </ion-content>
+  
+  
+
+
+<!--
+  Generated template for the VentaCreditoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"    <ion-input type="text" [ngModel]="ventas.total++verSeleccion.precioVenta++venta.total-ventas.anticipo"  ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" name="total" readonly ></ion-input>
+<ion-header>
+
+    <ion-navbar>
+      <ion-title>Venta a Crédito</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  
+  <ion-content padding >
+    <ion-item>
+      <ion-label>Añadir Producto(Opcional): </ion-label>
+        <ion-select [(ngModel)]="itemSelected"  (ionChange)="capturarItem();" name="id" okText="Aceptar" cancelText="Cancelar" >
+          <ion-option *ngFor="let producto of productos" [value]="producto">
+            {{producto.nombre}} &nbsp;&nbsp; ${{producto.precioVenta}}
+          </ion-option>
+        </ion-select>
+    </ion-item>
+    
+    <form method="POST" onInput="total.value=parseFloat(valor1.value)+parseFloat(valor2.value)-parseFloat(valor3.value)" #formGuardar="ngForm" (submit)="goToCrearVentaCredito(formGuardar)">
+      <ion-list>
+      <div class="spacer" style="height:10;" id="registroDeVentasContado-spacer7"></div>
+        <ion-item id="registroDeVentas-input7">
+          <ion-label stacked>
+            Nombre del Producto/Servicio:
+          </ion-label>
+        <ion-input type="text" [(ngModel)]= "verSeleccion.nombre"  name="nombreProducto" placeholder="" required></ion-input>
+        </ion-item>
+        <div class="spacer" style="height:10;" id="registroDeVentas-spacer7"></div>
+        <ion-item id="registroDeVentasContado-input9">
+            <ion-label>
+              Precio :
+            </ion-label>
+            <ion-input type="number" [(ngModel)]= "verSeleccion.precioVenta"  name="precio"  id="valor1" value="0" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" placeholder="" required></ion-input>
+          </ion-item>
+        <div class="spacer" style="height:10;" id="registroDeVentas-spacer9"></div>
+        <ion-item id="registroDeVentas-input10">
+          <ion-label position="stacked">
+            Saldo Actual :
+          </ion-label>
+          <ion-input type="text" [(ngModel)]= "venta.total"   name="saldoActual" id="valor2" value="0" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" placeholder="0.00" readonly></ion-input>
+        </ion-item>
+        <div class="spacer" style="height:10;" id="registroDeVentas-spacer9"></div>
+        <ion-item id="registroDeVentas-input10">
+          <ion-label position="stacked">
+            Anticipo :
+          </ion-label>
+          <ion-input type="number"  [(ngModel)]= "ventas.anticipo"  name="anticipo" id="valor3" value="0"  ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" placeholder="0.00"></ion-input>
+        </ion-item>
+        <div class="spacer" style="height:10;" id="registroDeVentas-spacer10"></div>
+        <ion-item >  
+          <ion-label>
+            Total1:
+          </ion-label>
+          <ion-input type="text"  name="total" for="valor1 valor2 valor3"  readonly ></ion-input>
+          <ion-label>
+              Total2:
+            </ion-label>
+          <ion-input type="text" [ngModel]="ventas.total|number: '.2-2'"  name="to" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/"  name="total" readonly ></ion-input>
+        </ion-item>
+        <div class="spacer" style="height:10;" id="registroDeCliente-spacer8"></div>
+        <div class="spacer" style="height:10;" id="registroDeCliente-spacer8"></div>
+        <p style="text-align: center;background-color:WhiteSmoke ">Esquema de Pago</p>
+        
+        <ion-item id="registroDeCliente-input12">
+          <ion-label for="fechaPP" >
+            Fecha de Próximo Cobro :
+          </ion-label>
+          <ion-input type="date" id="fechaPP" [(ngModel)]= "ventas.fechaPP"  name="fechaPP" [value]="fechaPP" (ionChange)="calcularF($event.value)" placeholder="Establecer Fecha"></ion-input>
+        </ion-item>
+        <div class="spacer" style="height:10;" id="registroDeCliente-spacer10"></div>
+      
+        <ion-item id="registroDeVentas-input10">
+          <ion-label position="stacked">
+            Pago Acordado:
+          </ion-label>
+          <ion-input type="number"  [(ngModel)]= "ventas.cantidadPagos"  name="cantidadPagos"  [value]="cantidadPagos" (ionChange)="calcularC($event.value)"  placeholder="0.00"></ion-input>
+        </ion-item>
+  
+        <div class="spacer" style="height:10;" id="registroDeVentas-spacer10"></div>
+          <ion-item >   
+              <ion-label>Modalidad de Cobro:</ion-label>
+              <ion-select [(ngModel)]="itemModa"  (ionChange)="capturarModa();" name="id" okText="Aceptar" cancelText="Cancelar" >
+                <ion-option *ngFor="let modalidad of modalidadC" [value]="modalidad">
+                {{modalidad.titulo}} 
+                </ion-option>
+              </ion-select>
+             </ion-item> 
+        <div class="spacer" style="width:300px;height:44px;" id="registroDeCliente-spacer11"></div>
+        <button ion-button [disabled]="!formGuardar.form.valid"  value="Guardar" ion-button color="positive" block>
+          Guardar
+         </button>
+      </ion-list> 
+  
+    </form>
+  </ion-content>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  function Sumar()
+  {
+    a=document.f1.precio.value;
+    b=document.f1.saldoActual.value;
+    c=document.f1.anticipo.value;
+    d=parseFloat(a)+parseFloat(b)-parseFloat(c);
+    document.f1.total.value=d;
+  }
+</script>-->
+
+
+
+<!--
+
+  <script>
+    
+              function clic(){
+                  var num1 = document.getElementById("precio").value;
+                  var num2 = document.getElementById("saldoActual").value;
+                  var num3 = document.getElementById("total").value;
+                  var resultado = ( num1 + num2)-num3;
+                  
+                  console.log(resultado);
+              }
+              
+          </script><input type="checkbox" [id]="['model-'+i]" [(ngModel)]="model" name="model-{{i}}" (change)="changeHandler($event)" />
+
+ <div class="spacer" style="height:10;" id="registroDeVentas-spacer10"></div>
+          <ion-item >   
+              <ion-label>Modalidad de Cobro:</ion-label>
+              <ion-select [(ngModel)]="itemModa"  (ionChange)="capturarModa();" name="idModalidad" okText="Aceptar" cancelText="Cancelar" >
+                <ion-option *ngFor="let modalidad of modalidadC" [value]="modalidad">
+                {{modalidad.titulo}} 
+                </ion-option>
+              </ion-select>
+             </ion-item> 
+
+
+
+        -->
