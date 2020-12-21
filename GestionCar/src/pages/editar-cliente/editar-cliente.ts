@@ -144,7 +144,7 @@ export class EditarClientePage implements OnInit{
         this.sumaCobrado=this.dashboard.totalCobrado;
       });
       let alert = this.alertCtrl.create({
-       title: '¿Eliminar Cliente?',
+       title: '¿Confirmar eliminación?',
        message: 'Se eliminará toda la información relacionada con el cliente',
        buttons: [
          {

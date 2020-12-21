@@ -110,7 +110,7 @@ export class NotasUsuarioPage implements OnInit {
     this.detalleUsuarioDashboard();
      let alert = this.alertCtrl.create({
       title: 'Confirmar eliminación',
-      message: '¿Estás seguro de que desea eliminar esta Nota?',
+      message: '¿Está seguro de que desea eliminar esta Nota?',
       buttons: [
         {
           text: 'No',

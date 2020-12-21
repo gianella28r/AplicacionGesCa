@@ -54,7 +54,7 @@ export class CambiarCorreoPage implements OnInit {
       if(this.passwordActual==this.password)
         if(this.correoActual!=this.correoNuevo){
           let alert = this.alertCtrl.create({
-            title: '¿Esta seguro de que desea cambiar el Correo Eléctronico?',
+            title: '¿Está seguro de que desea cambiar el Correo Eléctronico?',
             message: 'Al cambiar el correo eléctronico se cerrará la sesión actual y deberá verificar el correo eléctronico nuevo',
             buttons: [
               {

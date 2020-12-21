@@ -102,7 +102,7 @@ export class ProductosPage implements OnInit  {
     this.detalleUsuarioDashboard();
     let alert = this.alertCtrl.create({
      title: 'Confirmar eliminación',
-     message: '¿Esta seguro de que desea eliminar este producto?',
+     message: '¿Está seguro de que desea eliminar este producto?',
      buttons: [
        {
          text: 'No',

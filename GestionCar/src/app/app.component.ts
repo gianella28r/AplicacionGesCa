@@ -161,7 +161,7 @@ export class MyApp {
     }else{
       console.log('aqui2');
       let alert = this.alertCtrl.create({
-        message: '¿Esta seguro de que desea Cerrar Sesión?',
+        message: '¿Está seguro de que desea Cerrar Sesión?',
         buttons: [
           {
             text: 'No',
