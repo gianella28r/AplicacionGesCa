@@ -184,6 +184,10 @@ export class DashboardPage implements OnInit {
   totalPagos: number=0;
   totalVentasCredito: number=0;
   totalVentasContado: number=0;
+  notass: Notas[];
+  contadorNotasTotales: number;
+  productoss: any;
+  contadorProductosTotales: number;
 
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController,private clientef:ClientesProvider,
     public dashboardf: DashboardProvider, public alertCtrl: AlertController,private ventaf:VentasProvider,
@@ -298,6 +302,26 @@ export class DashboardPage implements OnInit {
     this.notaf.getAllNotasRecordatorio(this.fecha).subscribe(notas=>{
       this.notas=notas;
       this.contadorNo=notas.length;
+      console.log(this.notas+'notita');
+    });
+    console.log(this.notas+'notita');
+    
+  }
+//obtner notas
+  allNotasUsuarios(){
+    this.notaf.getAllNotas().subscribe(notas=>{
+      this.notass=notas;
+      this.contadorNotasTotales=notas.length;
+      console.log(this.notas+'notita');
+    });
+    console.log(this.notas+'notita');
+    
+  }
+  //obtener productos
+  allProductosUsuarios(){
+    this.productof.getAllProductos().subscribe(productos=>{
+      this.productoss=productos;
+      this.contadorProductosTotales=productos.length;
       console.log(this.notas+'notita');
     });
     console.log(this.notas+'notita');
