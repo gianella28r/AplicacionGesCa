@@ -52,7 +52,7 @@ export class ProductosProvider {
     precioTransformado:precioProductoVenta ,
     descripcion:'',
     image:captureDataUrl,
-    idImagen:''});
+    idImagen:captureDataUrl});
   }
   
   

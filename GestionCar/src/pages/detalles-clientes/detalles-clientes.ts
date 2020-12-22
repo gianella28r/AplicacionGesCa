@@ -131,6 +131,7 @@ export class DetallesClientesPage implements OnInit {
   totalVen: any;
   totalCo: any;
   numeroPa:any;
+  numeroProductos: number;
  
   constructor(public navCtrl: NavController, private navParams: NavParams, 
     private clientef: ClientesProvider, public usuariof: UsuarioProvider,
@@ -153,6 +154,7 @@ export class DetallesClientesPage implements OnInit {
  detalleUsuarioDashboard(){
   this.dashboardf.getDatosDashboard().subscribe(dashboard=>{
     this.dashboard=dashboard;
+    this.numeroProductos=this.dashboard.contadorProductos;
     this.numeroVentas=this.dashboard.contadorVentas;
     this.numeroCobros=this.dashboard.contadorCobros;
     this.sumaVentas=this.dashboard.totalVendido;
@@ -395,7 +397,7 @@ export class DetallesClientesPage implements OnInit {
       res2=totalC.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       sumaCobrado=res2+'';
       numeroCobros=this.numeroCobros-1;
-      this.dashboardf.updateUsuarioTotalVentas(numeroVentas,numeroCobros,sumaVentas,sumaCobrado);
+      this.dashboardf.updateUsuarioTotalVentas(this.numeroProductos,numeroVentas,numeroCobros,sumaVentas,sumaCobrado);
   }
 
 

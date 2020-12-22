@@ -25,13 +25,14 @@ export class EditarProductoPage implements OnInit  {
     id:'',
     nombre:'',
     precioVenta: '',
+    precioTransformado:'',
     descripcion:'',
     image:'',
     idImagen:'',
-    precioTransformado:'',
     } 
   precioReal: any;
   precioTrans: string;
+  descripcion: string;
   constructor(public navCtrl: NavController, public navParams: NavParams, private productof: ProductosProvider,private camera:Camera,
     private loadingCtrl: LoadingController,public alertCtrl: AlertController) {
     this.idProducto = navParams.get("idProducto");
@@ -50,6 +51,7 @@ export class EditarProductoPage implements OnInit  {
         this.captureDataUrl=producto.image;
         this.captureData=this.captureDataUrl;
         this.precioTrans=this.producto.precioTransformado;
+        this.descripcion=producto.descripcion;
       }
     });
   }
@@ -126,7 +128,7 @@ export class EditarProductoPage implements OnInit  {
     value.image=this.captureDataUrl;
     value.precioTransformado=this.precioTrans;
     this.productof.updateProducto(value);//envio todo los parametros de cliente para actualizar
-    this.productof.deleteImagen(this.captureData);
+    //this.productof.deleteImagen(this.captureData);
     this.navCtrl.setRoot(ProductosPage);
   }
 }

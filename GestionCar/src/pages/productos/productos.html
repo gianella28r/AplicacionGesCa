@@ -26,7 +26,7 @@
     <ion-list *ngFor="let producto of listaProductos" >
         <ion-item text-wrap >
             <ion-card>
-                <img (click)="editarProducto(producto.id)" class="img" src={{producto.image}} >
+                <img (click)="editarProducto(producto.id)" class="img" src={{producto.idImagen}} >
                 <ion-card-header (click)="editarProducto(producto.id)" style="background-color: white;" >
                   <ion-card-title text-wrap style="color: #3171e0;" >  
                   {{producto.nombre}}

@@ -51,6 +51,7 @@ export class RegistroProductoPage implements OnInit  {
     private productof: ProductosProvider, private camera:Camera,public dashboardf: DashboardProvider,
     private loadingCtrl: LoadingController) {
       this.captureDataUrl= "assets/imgs/nimg.jpg";
+      this.shareImagen= "assets/imgs/nimg.jpg";
   }
   
   ngOnInit(){
