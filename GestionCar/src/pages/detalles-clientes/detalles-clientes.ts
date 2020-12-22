@@ -132,6 +132,9 @@ export class DetallesClientesPage implements OnInit {
   totalCo: any;
   numeroPa:any;
   numeroProductos: number;
+  estadoDeudaCliente: boolean=false;
+  valorFavor: number;
+  adeudaEstado:number=0;
  
   constructor(public navCtrl: NavController, private navParams: NavParams, 
     private clientef: ClientesProvider, public usuariof: UsuarioProvider,
@@ -262,6 +265,13 @@ export class DetallesClientesPage implements OnInit {
           }
           let orden=parseFloat(strE);
           this.clientef.updateClienteVenta(this.idCliente,this.venta.total,orden);
+          if(orden<0){
+            this.valorFavor=orden*(-1);
+            this.estadoDeudaCliente=true;
+            this.adeudaEstado=0;
+            console.log('orden'+orden);
+
+          }
         }
 
         if(ventass.length==0){
