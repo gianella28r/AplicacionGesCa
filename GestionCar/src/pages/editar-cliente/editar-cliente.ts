@@ -74,6 +74,7 @@ export class EditarClientePage implements OnInit{
   }
   estadoFormaPago: boolean;
   idFormaPago:string;
+  saldoactual: any;
   
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController,private ventaf:VentasProvider,public dashboardf: DashboardProvider,public navParams: NavParams, private clientef: ClientesProvider) {
@@ -121,6 +122,7 @@ export class EditarClientePage implements OnInit{
         this.numeroVen=cliente.numeroVentas;
         this.totalVen=cliente.totalVendido;
         this.totalCo=cliente.totalCobrado;
+        this.saldoactual=cliente.adeuda;
         }
       });
     }
@@ -134,37 +136,46 @@ export class EditarClientePage implements OnInit{
 
     //Funcion para eliminar un cliente
     goToEliminarCliente(cliente){
-      this.cargarFormaPago();
-      this.dashboardf.getDatosDashboard().subscribe(dashboard=>{
-        this.dashboard=dashboard;
-        this.numeroClientes=this.dashboard.contadorClientes;
-        this.numeroCobros=this.dashboard.contadorCobros;
-        this.numeroVentas=this.dashboard.contadorVentas;
-        this.sumaVentas=this.dashboard.totalVendido;
-        this.sumaCobrado=this.dashboard.totalCobrado;
-      });
-      let alert = this.alertCtrl.create({
-       title: '¿Confirmar eliminación?',
-       message: 'Se eliminará toda la información relacionada con el cliente',
-       buttons: [
-         {
-           text: 'No',
-           role: 'cancel',
-           handler: () => {
-             // Ha respondido que no así que no hacemos nada
-           }
-         },
-         {
-           text: 'Si',
-           handler: () => {
-                // AquÍ borramos el sitio en la base de datos
-                this.numeroClientes=this.numeroClientes-1;
-                this.eliminarDatosCliente(cliente);
+      if(this.saldoactual=='0'|| this.saldoactual=='0.00'){
+        this.cargarFormaPago();
+        this.dashboardf.getDatosDashboard().subscribe(dashboard=>{
+          this.dashboard=dashboard;
+          this.numeroClientes=this.dashboard.contadorClientes;
+          this.numeroCobros=this.dashboard.contadorCobros;
+          this.numeroVentas=this.dashboard.contadorVentas;
+          this.sumaVentas=this.dashboard.totalVendido;
+          this.sumaCobrado=this.dashboard.totalCobrado;
+        });
+        let alert = this.alertCtrl.create({
+        title: '¿Confirmar eliminación?',
+        message: 'Se eliminará toda la información relacionada con el cliente',
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+            handler: () => {
+              // Ha respondido que no así que no hacemos nada
             }
-         }
-       ]
-     });
-     alert.present();
+          },
+          {
+            text: 'Si',
+            handler: () => {
+                  // AquÍ borramos el sitio en la base de datos
+                  this.numeroClientes=this.numeroClientes-1;
+                  this.eliminarDatosCliente(cliente);
+              }
+          }
+        ]
+      });
+      alert.present();
+      }else{
+        let alert = this.alertCtrl.create({
+          title: '',
+          message: 'No se puede eliminar este cliente, aún tiene deuda pendiente. Por favor realice los cobros respectivos para poder eliminarlo',
+          buttons: ['OK']
+          });
+          alert.present();
+      }
     }  
   //funcion para eliminar datos del cliente en el dashboard
   eliminarDatosCliente(cliente:any){
