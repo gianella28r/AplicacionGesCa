@@ -124,11 +124,25 @@ export class VentaContadoPage implements OnInit  {
   totalVen: any;
   totalCo: any;
   fecha: string;
+  captureDataUrl:any;
+  numeroproductos: any;
+  productoss: Productos = {  
+    id:'',
+    nombre:'',
+    precioVenta:'',
+    descripcion:'',
+    image:'',
+    idImagen:'',
+    precioTransformado:'',
+  } 
+  estadoCantidadProductos:boolean=false;
+  nombreProducto: string;
   constructor( public navCtrl: NavController, private authf: AuthProvider ,public navParams: NavParams, 
   private clientef:ClientesProvider,private ventaf: VentasProvider,public dashboardf: DashboardProvider, private productof:ProductosProvider) {
     this.idCliente = navParams.get("id");
     console.log("idVentas");
     console.log(this.idCliente);
+    this.captureDataUrl= "assets/imgs/nimg.jpg";
   }
 
   ngOnInit(){
@@ -170,6 +184,7 @@ export class VentaContadoPage implements OnInit  {
         this.totalVen=cliente.totalVendido;
         this.totalCo=cliente.totalCobrado;
         console.log(this.totalCo+'total');
+        this.numeroproductos=this.dashboard.contadorProductos;
       }
     });
   }
@@ -208,6 +223,9 @@ export class VentaContadoPage implements OnInit  {
   //funcion para obtener el producto y su precio 
   capturarItem(){
     this.verSeleccion=this.itemSelected;
+    if(this.verSeleccion.nombre){
+      this.estadoCantidadProductos=true;
+    }
     this.calcularPrecio(this.verSeleccion.precioVenta);
   }
 
@@ -375,8 +393,21 @@ export class VentaContadoPage implements OnInit  {
       this.totalCo=res2+'';
   }
 
+  crearproducto(){
+    this.nombreProducto=this.verSeleccion.nombre;
+    if(this.estadoCantidadProductos==false){
+      this.productof.addNewProductoVentas(this.nombreProducto,this.precioReal,this.captureDataUrl);
+      this.numeroproductos=this.numeroproductos+1;
+      console.log(this.numeroproductos+'numero de Productos');
+    }else{
+      console.log(' no se guardado producto');
+    }
+  }
+
   //funcion para crear una venta al contado nueva
   goToCrearVentaContado({value}:{value:Ventas}){
+
+    this.crearproducto();
     this.sumarVentas();
     this.sumarVentasCliente();
     value.titulo="Venta Contado";
@@ -388,8 +419,10 @@ export class VentaContadoPage implements OnInit  {
     this.numeroCobros=this.numeroCobros+1;
     this.numeroPa=this.numeroPa+1;
     this.numeroVen=this.numeroVen+1;
+    this.nombreProducto=this.verSeleccion.nombre;
+
     this.authf.getAuth().subscribe(user=>{
-      this.dashboardf.updateUsuarioTotalVentas(this.numeroVentas,this.numeroCobros,this.sumaVentas,this.sumaCobrado);
+      this.dashboardf.updateUsuarioTotalVentas(this.numeroproductos,this.numeroVentas,this.numeroCobros,this.sumaVentas,this.sumaCobrado);
       this.clientef.updateClienteDatosVenta(this.idCliente,this.numeroPa,this.numeroVen,this.totalVen,this.totalCo); 
       this.ventaf.addNewVenta(value,this.idCliente);
     });

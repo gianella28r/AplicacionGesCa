@@ -21,8 +21,13 @@ export class ProductosProvider {
   productos:Observable<Productos[]>;
   producto:Observable<Productos>;
   downloadURL:Observable<string>;
+  productoFiltroCollection: AngularFirestoreCollection<Productos>;
+  productosFiltro: Observable<Productos[]>;
   constructor(private afs: AngularFirestore, private alert:AlertController) {
-    
+    console.log('Hello ProductosProvider Provider');
+    let currentUser = firebase.auth().currentUser;
+    this.productoCollection= this.afs.collection('Usuarios').doc(currentUser.uid)
+    .collection('Productos', ref=>ref.orderBy('nombre','asc'));
   }
   ngOnInit() {
     
@@ -36,17 +41,17 @@ export class ProductosProvider {
     this.productoCollection.add(producto);
   }
 
-  addNewProductoVentas(nombreProducto:any, precioProductoVenta:any, precioProductoTrans:any){
+  addNewProductoVentas(nombreProducto:any, precioProductoVenta:any,captureDataUrl:any){
     console.log('Hello ProductosProvider Provider');
     let currentUser = firebase.auth().currentUser;
     this.productoCollection= this.afs.collection('Usuarios').doc(currentUser.uid)
     .collection('Productos', ref=>ref.orderBy('nombre','asc'));
     this.productoCollection.add({
     nombre:nombreProducto,
-    precioVenta: precioProductoVenta,
-    precioTransformado:precioProductoTrans,
+    precioVenta:precioProductoVenta,
+    precioTransformado:precioProductoVenta ,
     descripcion:'',
-    image:'',
+    image:captureDataUrl,
     idImagen:''});
   }
   
@@ -83,6 +88,24 @@ export class ProductosProvider {
     });
     return this.producto;
   }
+
+  //Método para obtener un producto de la coleccion Producto de la Base de datos Cloud Firestore
+ /* getOneProductos(nombreProducto:any):Observable<Productos[]>{//metodo para obtener todos los clientes con cuentas al corriente
+      let currentUser = firebase.auth().currentUser;
+      this.productoFiltroCollection = this.afs.collection('Usuarios').doc( currentUser.uid)
+        .collection('Productos', ref=>ref.where('nombre', '==', nombreProducto));
+      
+      this.productosFiltro=this.productoFiltroCollection.snapshotChanges()
+        .map(changes => {
+          return changes.map(action=>{
+            const data=action.payload.doc.data() as Productos;
+            data.id=action.payload.doc.id;
+            return data;
+        } );
+      });
+      return this.productosFiltro;
+     
+    }*/
 
   //Método para actualizar un producto de la coleccion Producto de la Base de datos Cloud Firestore
   updateProducto(producto:Productos){

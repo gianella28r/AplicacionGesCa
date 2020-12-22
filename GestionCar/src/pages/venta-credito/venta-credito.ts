@@ -26,6 +26,8 @@ export class VentaCreditoPage  implements OnInit{
   i:number;
   ventass:Ventas[];
   productos:Productos[];
+  productosF:Productos[];
+  productosFi:Productos[];
   idTransaccionAnterior: any;
   idTran:any;
   venta: Ventas = {  
@@ -169,9 +171,24 @@ export class VentaCreditoPage  implements OnInit{
   fecha: string;
   nombreProducto:any;
   precioProducto:any;
+  captureDataUrl:any;
+  numeroproductos:any;
+  productoss: Productos = {  
+    id:'',
+    nombre:'',
+    precioVenta:'',
+    descripcion:'',
+    image:'',
+    idImagen:'',
+    precioTransformado:'',
+  } 
+
+  estadoCantidadProductos:boolean=false;
+  
   
  constructor( public navCtrl: NavController, private authf: AuthProvider ,public dashboardf: DashboardProvider,public navParams: NavParams, private clientef:ClientesProvider,private ventaf: VentasProvider,private productof:ProductosProvider) {
     this.idCliente = navParams.get("id");
+    this.captureDataUrl= "assets/imgs/nimg.jpg";
   }
   
 
@@ -225,6 +242,7 @@ export class VentaCreditoPage  implements OnInit{
       this.numeroCobros=this.dashboard.contadorCobros;
       this.sumaVentas=this.dashboard.totalVendido;
       this.sumaCobrado=this.dashboard.totalCobrado;
+      this.numeroproductos=this.dashboard.contadorProductos;
      
     });
   }
@@ -251,18 +269,46 @@ export class VentaCreditoPage  implements OnInit{
     }); 
   }
 
-  //funcion para obtener todos los productos
+  //funcion para recuperar todos los productos guardados por el usuario
   goToObtenerProductos(){
     this.productof.getAllProductos().subscribe(productos=>{
       this.productos=productos;
     }); 
   }
 
+   //funcion para obtener un producto
+   /*goToObtenerUnProducto(){
+     var producto:any;
+     var nombreoriginal:any;
+     this.nombreProducto=this.verSeleccion.nombre;
+     this.productof.getOneProductos(this.nombreProducto).subscribe(productosF=>{
+      this.productosF=productosF;
+      //producto=productosF.length;
+      if(this.productosF.length>0){
+        for(var i=0;i<productosF.length; i++){
+          this.productoss=this.productosF[i];
+          if(nombreoriginal==this.productoss.nombre){
+            var cont=cont+1;
+            this.estadoCantidadProductos=cont;
+            console.log('mide la cadena productos total'+this.estadoCantidadProductos);
+
+          }
+        }
+      } 
+    });    
+  }*/
+
+ 
+
    //funcion para obtener el producto y su precio 
   capturarItem(){
+    var estado:number=0;
     this.verSeleccion=this.itemSelected;
-    
+    if(this.verSeleccion.nombre){
+      this.estadoCantidadProductos=true;
+    }
     this.calcularPrecio(this.verSeleccion.precioVenta);
+   
   }
 
   //funcion para obtener el campo precio y hacer calculos
@@ -507,8 +553,43 @@ export class VentaCreditoPage  implements OnInit{
   }
 
 
+  /*goToObtenerTodosProductos(){
+    var nombre:any;
+    var nombreoriginal:any;
+    var cont:any=0;
+    nombreoriginal=this.verSeleccion.nombre;
+    this.productof.getAllProductos().subscribe(productos=>{
+      this.productos=productos;
+        for(var i=0;i<productos.length; i++){
+          this.productoss=this.productosF[i];
+          if(nombreoriginal==this.productoss.nombre){
+            var cont=cont+1;
+            this.estadoCantidadProductos=cont;
+          }
+        }
+         
+        
+    }); 
+  }*/
+
+  crearproducto(){
+    this.nombreProducto=this.verSeleccion.nombre;
+    if(this.estadoCantidadProductos==false){
+      this.productof.addNewProductoVentas(this.nombreProducto,this.precioReal,this.captureDataUrl);
+      console.log('valores precio'+this.precioReal+this.precioTrans);
+      this.numeroproductos=this.numeroproductos+1;
+      console.log(this.numeroproductos+'numero de Productos');
+    }else{
+      console.log(' no se guardado producto');
+    }
+  }
+
+
   //funcion para crear una venta credito nueva
   goToCrearVentaCredito({value}:{value:Ventas}){
+    this.crearproducto();
+    //this.goToObtenerTodosProductos()
+   
     this.sumarVentas();
     this.sumarVentasCliente();
     value.clienId=this.idCliente;
@@ -517,10 +598,9 @@ export class VentaCreditoPage  implements OnInit{
     value.precio=this.precioReal;
     value.anticipo=this.precioTrans;
     value.cantidad=this.cantidad;
-    value.fechaPago=this.fecha;
-    this.nombreProducto=this.verSeleccion.nombre;
-    console.log(this.nombreProducto+'primera iteraccion');
-    
+    console.log(this.precioReal+'real'+this.precioTrans+'transformado');
+    value.fechaPago=this.fecha;     
+
     this.numeroVentas=this.numeroVentas+1;
     this.numeroVen=this.numeroVen+1;
     if(this.anticipo==0){
@@ -530,15 +610,19 @@ export class VentaCreditoPage  implements OnInit{
       this.numeroCobros=this.numeroCobros+1;
       this.numeroPa=this.numeroPa+1;
     }
+    //this.crearproducto();
+  
     this.authf.getAuth().subscribe(user=>{
-    this.dashboardf.updateUsuarioTotalVentas(this.numeroVentas,this.numeroCobros,this.sumaVentas,this.sumaCobrado);
+     
+    this.dashboardf.updateUsuarioTotalVentas(this.numeroproductos,this.numeroVentas,this.numeroCobros,this.sumaVentas,this.sumaCobrado);
     
     this.clientef.updateClienteDatosVenta(this.idCliente,this.numeroPa,this.numeroVen,this.totalVen,this.totalCo); 
-    this.obtenerSaldoActual();
+    this.obtenerSaldoActual();   
     this.ventaf.addNewVenta(value,this.idCliente);
+    
+    
     });
-
-   this.productof.addNewProductoVentas(this.nombreProducto,this.precioReal, this.precioTrans);
+    //this.crearproducto();
     this.navCtrl.pop();
   } 
 

@@ -138,9 +138,10 @@ export class DashboardProvider {
   }
 
   //metodo para actualizar el total de vendido
-  updateUsuarioTotalVentas(numeroVentas:any,numeroCobros:any,totalVentas:any,sumaCobrado:any){
+  updateUsuarioTotalVentas(numeroProductos:any,numeroVentas:any,numeroCobros:any,totalVentas:any,sumaCobrado:any){
     this.dashboardDoc= this.afs.doc(`Usuarios/${this.currentUser.uid}/Dashboard/${this.currentUser.uid}`);
     return this.dashboardDoc.update({
+      contadorProductos:numeroProductos,
       contadorVentas:numeroVentas,
       contadorCobros:numeroCobros,
       totalVendido:totalVentas,
