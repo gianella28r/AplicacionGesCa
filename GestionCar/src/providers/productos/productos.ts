@@ -73,6 +73,7 @@ export class ProductosProvider {
     return this.productos;
   }
 
+
  //Método para obtener un producto de la coleccion Producto de la Base de datos Cloud Firestore
   getOneProducto(idProducto:string){
     let currentUser = firebase.auth().currentUser;
@@ -90,7 +91,7 @@ export class ProductosProvider {
   }
 
   //Método para obtener un producto de la coleccion Producto de la Base de datos Cloud Firestore
- /* getOneProductos(nombreProducto:any):Observable<Productos[]>{//metodo para obtener todos los clientes con cuentas al corriente
+ getOneProductos(nombreProducto:any):Observable<Productos[]>{//metodo para obtener todos los clientes con cuentas al corriente
       let currentUser = firebase.auth().currentUser;
       this.productoFiltroCollection = this.afs.collection('Usuarios').doc( currentUser.uid)
         .collection('Productos', ref=>ref.where('nombre', '==', nombreProducto));
@@ -105,7 +106,7 @@ export class ProductosProvider {
       });
       return this.productosFiltro;
      
-    }*/
+    }
 
   //Método para actualizar un producto de la coleccion Producto de la Base de datos Cloud Firestore
   updateProducto(producto:Productos){

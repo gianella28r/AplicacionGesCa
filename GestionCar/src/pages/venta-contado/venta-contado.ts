@@ -28,6 +28,7 @@ export class VentaContadoPage implements OnInit  {
   ventass:Ventas[];
   productos:Productos[];
   idTransaccionAnterior: any;
+  productosF:Productos[];
   idTran:any;
 
   venta: Ventas = {  
@@ -223,9 +224,6 @@ export class VentaContadoPage implements OnInit  {
   //funcion para obtener el producto y su precio 
   capturarItem(){
     this.verSeleccion=this.itemSelected;
-    if(this.verSeleccion.nombre){
-      this.estadoCantidadProductos=true;
-    }
     this.calcularPrecio(this.verSeleccion.precioVenta);
   }
 
@@ -393,21 +391,45 @@ export class VentaContadoPage implements OnInit  {
       this.totalCo=res2+'';
   }
 
-  crearproducto(){
+  //funcion para obtener un producto
+  goToObtenerUnProducto(){
+    var producto:any;
+    var nombreoriginal:any;
     this.nombreProducto=this.verSeleccion.nombre;
-    if(this.estadoCantidadProductos==false){
-      this.productof.addNewProductoVentas(this.nombreProducto,this.precioReal,this.captureDataUrl);
-      this.numeroproductos=this.numeroproductos+1;
-      console.log(this.numeroproductos+'numero de Productos');
-    }else{
-      console.log(' no se guardado producto');
-    }
-  }
+    var numero :number =0;
+    this.productof.getOneProductos(this.nombreProducto).subscribe(productos=>{
+     this.productosF=productos;
+     if(productos.length){
+         this.estadoCantidadProductos=true;
+         console.log('si hay este producto'+productos.length);  
+        
+     }
+     console.log('si hay este producto nombre es'+this.nombreProducto);  
+     this.crearproducto(this.estadoCantidadProductos,this.nombreProducto);
+   });
+   
+ }
+
+ //crear un producto que no existe
+ crearproducto(estado:any,nombreoriginal:any){
+   
+   console.log('entradndo  a'+this.nombreProducto);
+   console.log('esaddo creacion'+this.nombreProducto);
+   this.estadoCantidadProductos=estado;
+   this.nombreProducto=nombreoriginal;
+
+   if(this.estadoCantidadProductos==false ){
+     this.productof.addNewProductoVentas(this.nombreProducto,this.precioReal,this.captureDataUrl);
+     this.numeroproductos=this.numeroproductos+1;
+     console.log(this.numeroproductos+'numero de Productos');
+   }else{
+     console.log(' no se guardado producto');
+   }
+ }
 
   //funcion para crear una venta al contado nueva
   goToCrearVentaContado({value}:{value:Ventas}){
-
-    this.crearproducto();
+    this.goToObtenerUnProducto();
     this.sumarVentas();
     this.sumarVentasCliente();
     value.titulo="Venta Contado";
