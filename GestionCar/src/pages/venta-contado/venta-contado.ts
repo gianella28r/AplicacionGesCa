@@ -48,6 +48,8 @@ export class VentaContadoPage implements OnInit  {
    cantidad:1,
    subTotal:'',
    fechaPago:'',
+   saldoFavor:0,
+   estadoTransaccion:true,
   } 
   ventas: Ventas = {  
    id:'',
@@ -66,6 +68,8 @@ export class VentaContadoPage implements OnInit  {
    cantidad:1,
    subTotal:'',
    fechaPago:'',
+   saldoFavor:0,
+   estadoTransaccion:true,
   }
 
  itemSelected:Productos={
@@ -119,6 +123,8 @@ export class VentaContadoPage implements OnInit  {
     numeroVentas:'',
     totalVendido:'',
     totalCobrado:'',
+    saldoFavorC:0,
+    estadoCliente:true,
   } 
   numeroPa: any;
   numeroVen: any;

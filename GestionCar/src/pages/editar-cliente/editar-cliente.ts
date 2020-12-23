@@ -38,6 +38,8 @@ export class EditarClientePage implements OnInit{
     numeroVentas:'',
     totalVendido:'',
     totalCobrado:'',
+    saldoFavorC:0,
+    estadoCliente:true,
   } 
 
   dashboard:Dashboard ={

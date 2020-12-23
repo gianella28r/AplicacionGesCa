@@ -57,6 +57,8 @@ export class DetallesClientesPage implements OnInit {
     numeroVentas:'',
     totalVendido:'',
     totalCobrado:'',
+    saldoFavorC:0,
+    estadoCliente:true,
   } 
   ventass:Ventas[];
   formaPagos:FormaPago[];
@@ -87,6 +89,8 @@ export class DetallesClientesPage implements OnInit {
    clienId:'',
    cantidad:1,
    subTotal:'',
+   saldoFavor:0,
+   estadoTransaccion:true,
   }
   
   idFinal:string='';
@@ -125,6 +129,8 @@ export class DetallesClientesPage implements OnInit {
     numeroVentas:'',
     totalVendido:'',
     totalCobrado:'',
+    saldoFavorC:0,
+    estadoCliente:true,
   }
   modalidadCo: any;
   numeroVen: any;

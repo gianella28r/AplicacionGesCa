@@ -52,6 +52,8 @@ export class AgendarPage implements OnInit{
    clienId:'',
    cantidad:1,
    subTotal:'',
+   saldoFavor:0,
+   estadoTransaccion:true,
   } 
 
   modalidadC=[

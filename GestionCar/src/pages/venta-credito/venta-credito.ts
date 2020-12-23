@@ -47,6 +47,8 @@ export class VentaCreditoPage  implements OnInit{
    cantidad:1,
    subTotal:'',
    fechaPago:'',
+   saldoFavor:0,
+   estadoTransaccion:true,
   } 
 
   ventas: Ventas = {  
@@ -66,6 +68,8 @@ export class VentaCreditoPage  implements OnInit{
    cantidad:1,
    subTotal:'',
    fechaPago:'',
+   saldoFavor:0,
+   estadoTransaccion:true,
   } 
 
   itemSelected:Productos={
@@ -184,9 +188,10 @@ export class VentaCreditoPage  implements OnInit{
   } 
 
   estadoCantidadProductos:boolean=false;
-  valorFavor: number;
+  valorFavor:number=0;
   estadoDeudaCliente: boolean;
   adeudaEstado: number;
+  saldoFavor: number=0;
   
   
  constructor( public navCtrl: NavController, private authf: AuthProvider ,public dashboardf: DashboardProvider,public navParams: NavParams, private clientef:ClientesProvider,private ventaf: VentasProvider,private productof:ProductosProvider) {
@@ -259,12 +264,15 @@ export class VentaCreditoPage  implements OnInit{
         for(var i=0;i<ventass.length; i++){
           this.venta=this.ventass[i];
           this.total=this.venta.total;
+          this.valorFavor=this.venta.saldoFavor;
           this.tot=this.total;
           this.t=this.tot;
+
          
        }  
       }else{
         this.total=0;
+        this.valorFavor=0;
         this.tot=this.total;
         this.t=this.tot;
        
@@ -586,9 +594,10 @@ export class VentaCreditoPage  implements OnInit{
     value.precio=this.precioReal;
     value.anticipo=this.precioTrans;
     value.cantidad=this.cantidad;
+    value.saldoFavor=this.saldoFavor;
+    value.fechaPago=this.fecha; 
+    value.estadoTransaccion=true;   
     console.log(this.precioReal+'real'+this.precioTrans+'transformado');
-    value.fechaPago=this.fecha;     
-
     this.numeroVentas=this.numeroVentas+1;
     this.numeroVen=this.numeroVen+1;
     if(this.anticipo==0){
@@ -604,10 +613,9 @@ export class VentaCreditoPage  implements OnInit{
      
     this.dashboardf.updateUsuarioTotalVentas(this.numeroproductos,this.numeroVentas,this.numeroCobros,this.sumaVentas,this.sumaCobrado);
     
-    this.clientef.updateClienteDatosVenta(this.idCliente,this.numeroPa,this.numeroVen,this.totalVen,this.totalCo); 
-    this.obtenerSaldoActual();   
+    this.clientef.updateClienteDatosVenta(this.idCliente,this.numeroPa,this.numeroVen,this.totalVen,this.totalCo);   
     this.ventaf.addNewVenta(value,this.idCliente);
-    
+    this.obtenerSaldoActual(); 
     });
     //this.crearproducto();
     this.navCtrl.pop();

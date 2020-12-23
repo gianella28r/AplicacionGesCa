@@ -38,6 +38,8 @@ export class EnviarDatosPage implements OnInit {
     observaciones:'',
     adeuda:0,
     fechaCobro:'',
+    saldoFavorC:0,
+    estadoCliente:true,
   } 
   venta: Ventas = {  
    id:'',
@@ -55,6 +57,8 @@ export class EnviarDatosPage implements OnInit {
    clienId:'',
    cantidad:1,
    subTotal:'',
+   saldoFavor:0,
+   estadoTransaccion:true,
   }
 
   radio_list= {

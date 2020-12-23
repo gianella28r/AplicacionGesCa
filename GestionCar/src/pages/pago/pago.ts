@@ -42,6 +42,8 @@ export class PagoPage implements OnInit {
    cantidad:1,
    subTotal:'',
    fechaPago:'',
+   saldoFavor:0,
+   estadoTransaccion:true,
   } 
 
   tran: Ventas = {  
@@ -61,6 +63,8 @@ export class PagoPage implements OnInit {
     cantidad:1,
     subTotal:'',
     fechaPago:'',
+    saldoFavor:0,
+    estadoTransaccion:true,
    } 
 
   venta: Ventas = {  
@@ -80,6 +84,8 @@ export class PagoPage implements OnInit {
    cantidad:1,
    subTotal:'',
    fechaPago:'',
+   saldoFavor:0,
+   estadoTransaccion:true,
   }
 
   idTransaccionAnterior: any;
@@ -119,6 +125,8 @@ export class PagoPage implements OnInit {
     totalVendido:'',
     totalCobrado:'',
     orden:0,
+    saldoFavorC:0,
+    estadoCliente:true,
   } 
 
   fechaCo:any='';

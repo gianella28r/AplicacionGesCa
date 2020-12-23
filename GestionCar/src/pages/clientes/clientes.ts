@@ -44,6 +44,8 @@ export default class ClientesPage implements OnInit {
     numeroVentas:'',
     totalVendido:'',
     totalCobrado:'',
+    saldoFavorC:0,
+    estadoCliente:true,
   } 
 
    ventas: Ventas = {  
@@ -59,6 +61,8 @@ export default class ClientesPage implements OnInit {
     fechaPP:'', //fecha proximo pago 
     observaciones:'',
     pago:'',
+    saldoFavor:0,
+    estadoTransaccion:true,
    } 
    u:string;
    numeroPagina:any='1';

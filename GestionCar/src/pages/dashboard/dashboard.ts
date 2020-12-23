@@ -87,6 +87,8 @@ export class DashboardPage implements OnInit {
     numeroVentas:'',
     totalVendido:'',
     totalCobrado:'',
+    saldoFavorC:0,
+    estadoCliente:true,
   } 
 
   allClientesDia: Clientes = {  
@@ -104,6 +106,8 @@ export class DashboardPage implements OnInit {
     numeroVentas:'',
     totalVendido:'',
     totalCobrado:'',
+    saldoFavorC:0,
+    estadoCliente:true,
   } 
 
   datosEstadoCuentas: Clientes = {  
@@ -121,6 +125,8 @@ export class DashboardPage implements OnInit {
     numeroVentas:'',
     totalVendido:'',
     totalCobrado:'',
+    saldoFavorC:0,
+    estadoCliente:true,
   } 
   venta:any;
 
@@ -170,6 +176,8 @@ export class DashboardPage implements OnInit {
     clienId:'',
     cantidad:1,
     subTotal:'',
+    saldoFavor:0,
+    estadoTransaccion:true,
   }
   totalCobro: any;
   datosCobros: any=[];

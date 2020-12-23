@@ -38,6 +38,8 @@ export default class RegistroClientesPage implements OnInit{
     totalVendido:'',
     totalCobrado:'',
     orden:0,
+    saldoFavorC:0,
+    estadoCliente:true,
   } 
 
   dashboard:Dashboard ={
@@ -73,6 +75,8 @@ export default class RegistroClientesPage implements OnInit{
     value.totalVendido='';
     value.totalCobrado='';
     value.orden=0;
+    value.estadoCliente=true;
+    value.saldoFavorC=0;
     this.numeroClientes=this.numeroClientes+1;
     this.dashboardf.updateUsuarioContadorCliente(this.numeroClientes);
     this.authf.getAuth().subscribe(user=>{

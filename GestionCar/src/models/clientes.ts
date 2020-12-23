@@ -14,4 +14,6 @@ export interface Clientes{
     totalVendido?:any;
     totalCobrado?:any;
     orden?:number;
+    saldoFavorC?:any;
+    estadoCliente?:boolean;
 }

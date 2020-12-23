@@ -15,4 +15,6 @@ export interface Ventas{
    cantidad?:number;
    subTotal?:any;
    fechaPago?:any;
+   saldoFavor?:any;
+   estadoTransaccion?:boolean;
 }
