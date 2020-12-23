@@ -260,6 +260,7 @@ export class DetallesClientesPage implements OnInit {
       for(var i=0;i<ventass.length; i++){
         this.venta=this.ventass[i];
         this.idFinal=this.venta.id; 
+        
      }
      
       if(this.cliente){
@@ -270,18 +271,15 @@ export class DetallesClientesPage implements OnInit {
             strE = strE.replace(re,"");
           }
           let orden=parseFloat(strE);
+          this.valorFavor=this.venta.saldoFavor;
+       
           this.clientef.updateClienteVenta(this.idCliente,this.venta.total,orden);
-          if(orden<0){
-            this.valorFavor=orden*(-1);
-            this.estadoDeudaCliente=true;
-            this.adeudaEstado=0;
-            console.log('orden'+orden);
-
-          }
+         
         }
 
         if(ventass.length==0){
           this.venta.total=0;
+          this.valorFavor=0;
           orden=0;
           this.clientef.updateClienteVenta(this.idCliente,this.venta.total,orden);
         }

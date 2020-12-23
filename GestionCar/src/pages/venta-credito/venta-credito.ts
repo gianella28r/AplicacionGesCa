@@ -191,7 +191,10 @@ export class VentaCreditoPage  implements OnInit{
   valorFavor:number=0;
   estadoDeudaCliente: boolean;
   adeudaEstado: number;
-  saldoFavor: number=0;
+  saldoFavor: any='0';
+  totalSaldoFavor: any;
+  valorAfavor: any='0';
+  saldoAfavor: any='0';
   
   
  constructor( public navCtrl: NavController, private authf: AuthProvider ,public dashboardf: DashboardProvider,public navParams: NavParams, private clientef:ClientesProvider,private ventaf: VentasProvider,private productof:ProductosProvider) {
@@ -264,17 +267,22 @@ export class VentaCreditoPage  implements OnInit{
         for(var i=0;i<ventass.length; i++){
           this.venta=this.ventass[i];
           this.total=this.venta.total;
-          this.valorFavor=this.venta.saldoFavor;
           this.tot=this.total;
           this.t=this.tot;
+          this.saldoFavor=this.venta.saldoFavor;
+          this.saldoAfavor=this.venta.saldoFavor;
+          this.valorFavor=this.saldoAfavor;
 
          
        }  
       }else{
         this.total=0;
-        this.valorFavor=0;
         this.tot=this.total;
         this.t=this.tot;
+        this.saldoFavor=0;
+        this.saldoAfavor=this.saldoFavor;
+        this.valorFavor=this.saldoAfavor;
+       
        
       }
     }); 
@@ -287,9 +295,6 @@ export class VentaCreditoPage  implements OnInit{
     }); 
   }
 
-  
-
- 
 
    //funcion para obtener el producto y su precio 
   capturarItem(){
@@ -307,6 +312,9 @@ export class VentaCreditoPage  implements OnInit{
     let res1 :any;
     let res2:any;
     let strEx:string='';
+    let saldoFavor:number=0;
+    let verificacion:number=0;
+    let strExSaldo:string='';
     this.transformarPrecio(valor1);
     if(this.cantidad==null){
       this.cantidad=1;
@@ -318,6 +326,8 @@ export class VentaCreditoPage  implements OnInit{
        console.log(this.p+'this.p');
       if( isNaN(this.p)) {
         this.total=this.tot;
+        this.valorFavor=this.saldoAfavor;
+        
       }
      
       strEx = this.tot;
@@ -327,15 +337,41 @@ export class VentaCreditoPage  implements OnInit{
         strEx = strEx.replace(re,"");
         
       }
+      strExSaldo = this.saldoAfavor;
+      var reSaldoFavor= /,/gi;
+    //primer paso: fuera puntoss
+      if(strExSaldo && strExSaldo.length>4){
+        strExSaldo = strExSaldo.replace(reSaldoFavor,""); 
+      }
       this.to=parseFloat(strEx);
+      this.valorAfavor=parseFloat(strExSaldo);
       this.subTotal=this.p*this.cantidad;
       this.sub=this.subTotal;
       this.ventaS=this.sub;
      
       res2=this.subTotal.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       this.subTotal=res2+'';
-     
-      this.total=this.to+this.sub-this.a;
+      saldoFavor=this.valorAfavor;
+      
+      this.total=this.to+this.sub-this.a-saldoFavor;
+      console.log(this.total+'total...');
+      this.saldoFavor=this.saldoAfavor;
+      
+      verificacion=this.total;
+      console.log('precio');
+      if(verificacion<0 || verificacion<0.00){
+       let saldoAfavor:number=0;
+        saldoAfavor=verificacion*(-1);
+        console.log(saldoAfavor+'saldoAfavor');
+        this.saldoFavor=saldoAfavor;
+        this.total=0;
+      }else{
+        this.saldoFavor=0;
+      }
+      var resSaldo:any;
+      resSaldo=this.saldoFavor.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      this.saldoFavor=resSaldo+'';
+      this.totalSaldoFavor=this.saldoFavor;
       
       res1=this.total.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       this.total=res1+'';
@@ -343,6 +379,7 @@ export class VentaCreditoPage  implements OnInit{
       
     }else{
       this.total=this.t;
+      this.saldoFavor=this.valorFavor;
       this.subTotal='';
       
     }
@@ -368,6 +405,10 @@ export class VentaCreditoPage  implements OnInit{
     let res2 :any;
     let res3 :any;
     let strEx:string='';
+    let strExSaldo:string='';
+    let saldoFavor:number=0;
+    let verificacion:number=0;
+    let saldoAFavor:number=0;
   
     if(this.p==null){
       this.p=0;
@@ -375,6 +416,7 @@ export class VentaCreditoPage  implements OnInit{
     if(valor1){
       if( isNaN( this.cantidad)) {
         this.total=this.tot;
+        this.saldoFavor=this.saldoAfavor;
       }
       strEx = this.tot;
       var re= /,/gi;
@@ -383,7 +425,16 @@ export class VentaCreditoPage  implements OnInit{
         strEx = strEx.replace(re,"");
         
       }
+
+      strExSaldo = this.saldoAfavor;
+      var reSaldoFavor= /,/gi;
+    //primer paso: fuera puntoss
+      if(strExSaldo && strExSaldo.length>4){
+        strExSaldo = strExSaldo.replace(reSaldoFavor,""); 
+      }
       this.to=parseFloat(strEx);
+      this.valorAfavor=parseFloat(strExSaldo);
+      
       this.subTotal=this.p*this.cantidad;
       this.sub=this.subTotal;
       this.ventaS=this.sub;
@@ -391,14 +442,37 @@ export class VentaCreditoPage  implements OnInit{
       res2=this.subTotal.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       this.subTotal=res2+'';
       
-      this.total=this.to+this.sub-this.a;
+      saldoFavor=this.valorAfavor;
+      
+      this.total=this.to+this.sub-this.a-saldoFavor;
+      
+      verificacion=this.total;
+      console.log(this.total+'total...');
+      
+      console.log('precio2');
+      this.saldoFavor=this.saldoAfavor;
+      if(verificacion<0 || verificacion<0.00){
+        let saldoAfavor:number=0;
+        saldoAfavor=verificacion*(-1);
+        console.log(saldoAfavor+'saldoAfavor');
+        this.saldoFavor=saldoAfavor;
+        this.total=0;
+      }else{
+        this.saldoFavor=0;
+      }
+      let resSaldo:string;
+      resSaldo=this.saldoFavor.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      this.saldoFavor=resSaldo+'';
+      this.totalSaldoFavor=this.saldoFavor;
       
       res3=this.total.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       this.total=res3+'';
       this.totalist=this.total;
+      
         
     }else{
       this.total=this.t;
+      this.saldoFavor=this.saldoAfavor;
       this.subTotal='';
     }
   }
@@ -408,6 +482,8 @@ export class VentaCreditoPage  implements OnInit{
   calcularA(valor2: any) { 
     let res3 :any;
     let totalist :any;
+    let saldoFavor:number=0;
+    let strExSaldo:string='';
     this.transformarAnticipo(valor2);
     if(this.sub==null){
       this.sub=0;
@@ -419,6 +495,7 @@ export class VentaCreditoPage  implements OnInit{
       
       if( isNaN( this.a)) {
         this.total=this.tot;
+        this.saldoFavor=this.saldoAfavor;
       }
       let strEx:string='';
       strEx = this.tot;
@@ -427,14 +504,42 @@ export class VentaCreditoPage  implements OnInit{
       if(strEx && strEx.length>4){
         strEx = strEx.replace(re,"");
       }
+      strExSaldo = this.saldoAfavor;
+      var reSaldoFavor= /,/gi;
+    //primer paso: fuera puntoss
+      if(strExSaldo && strExSaldo.length>4){
+        strExSaldo = strExSaldo.replace(reSaldoFavor,""); 
+      }
       this.to=parseFloat(strEx);
-      this.total=this.to+this.sub-this.a;
+      this.saldoAfavor=parseFloat(strExSaldo);     
+     
+      saldoFavor=this.saldoAfavor;
+      this.total=this.to+this.sub-this.a-saldoFavor;
+      let verificacion:number;
+      verificacion=this.total;
+      this.saldoFavor=this.saldoAfavor;
+      if(verificacion<0 || verificacion<0.00){
+        var saldoAfavor:any;
+        saldoAfavor=verificacion*(-1);
+        console.log(saldoAfavor+'saldoAfavor');
+        this.total=0;
+        this.saldoFavor=saldoAfavor;
+      }else{
+        this.saldoFavor=0;
+      }
+      
+      var resSaldo:any;
+      resSaldo=this.saldoFavor.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      this.saldoFavor=resSaldo+'';
+      this.totalSaldoFavor=this.saldoFavor;
+
       res3=this.total.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       this.total=res3+'';
       totalist=this.total;
       
     }else{
       this.total=this.totalist;
+      this.saldoFavor=this.totalSaldoFavor;
     }
   }
 

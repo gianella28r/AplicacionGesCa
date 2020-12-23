@@ -144,6 +144,7 @@ export class VentaContadoPage implements OnInit  {
   } 
   estadoCantidadProductos:boolean=false;
   nombreProducto: string;
+  saldoFavor: any='0';
   constructor( public navCtrl: NavController, private authf: AuthProvider ,public navParams: NavParams, 
   private clientef:ClientesProvider,private ventaf: VentasProvider,public dashboardf: DashboardProvider, private productof:ProductosProvider) {
     this.idCliente = navParams.get("id");
@@ -216,6 +217,7 @@ export class VentaContadoPage implements OnInit  {
       console.log("1");
         for(var i=0;i<ventass.length; i++){
           this.venta=this.ventass[i];
+          this.saldoFavor=this.venta.saldoFavor;
        }  
     }); 
   }
@@ -443,6 +445,7 @@ export class VentaContadoPage implements OnInit  {
     value.precio=this.precioReal;
     value.cantidad=this.cantidad;
     value.fechaPago=this.fecha;
+    value.saldoFavor=this.saldoFavor;
     this.numeroVentas=this.numeroVentas+1;
     this.numeroCobros=this.numeroCobros+1;
     this.numeroPa=this.numeroPa+1;

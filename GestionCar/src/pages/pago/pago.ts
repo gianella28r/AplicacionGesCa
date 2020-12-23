@@ -141,6 +141,12 @@ export class PagoPage implements OnInit {
   fechaProximaPagar: any='';
   cobroResta: any;
   fecha: string;
+
+  saldoFavor: any='0';
+  totalSaldoFavor: any;
+  valorAfavor: any='0';
+  saldoAfavor: any='0';
+  valorFavor:number=0;
   constructor( public navCtrl: NavController,private clientef:ClientesProvider,public dashboardf: DashboardProvider, private authf: AuthProvider ,public navParams: NavParams,private ventaf: VentasProvider) {
     this.idCliente = navParams.get("id"); 
   }
@@ -194,10 +200,16 @@ export class PagoPage implements OnInit {
           this.venta=this.ventass[i];
           this.total=this.venta.total;
           this.tot=this.total;
+          this.saldoFavor=this.venta.saldoFavor;
+          this.saldoAfavor=this.venta.saldoFavor;
+          this.valorFavor=this.saldoAfavor;
        }  
       }else{
         this.total=0;
         this.tot=this.total;
+        this.saldoFavor=0;
+        this.saldoAfavor=this.saldoFavor;
+        this.valorFavor=this.saldoAfavor;
       }
     });  
     
@@ -206,7 +218,11 @@ export class PagoPage implements OnInit {
   //funcion para restar valores de la adeudo total
   restarDatos() { 
     let res1 :any;
+    let saldoFavor:number=0;
+    let verificacion:number=0;
+    let strExSaldo:string='';
     let valor1=this.cobroResta;
+    
     this.transformarPago(valor1);
     if(valor1){
       let strE:string='';
@@ -221,6 +237,7 @@ export class PagoPage implements OnInit {
      
       if( isNaN( valor1)) {
         this.total=this.tot;
+        this.valorFavor=this.saldoAfavor;
       }
       let strEx:string='';
       strEx = this.tot;
@@ -230,19 +247,49 @@ export class PagoPage implements OnInit {
         strEx = strEx.replace(re,"");
       }
       this.to=parseFloat(strEx);
-      this.total=this.to-valor1;
+
+      strExSaldo = this.saldoAfavor;
+      var reSaldoFavor= /,/gi;
+    //primer paso: fuera puntoss
+      if(strExSaldo && strExSaldo.length>4){
+        strExSaldo = strExSaldo.replace(reSaldoFavor,""); 
+      }
+      this.valorAfavor=parseFloat(strExSaldo);
+      saldoFavor=this.valorAfavor;
+      this.total=this.to-valor1-saldoFavor;
+      verificacion=this.total;
+      console.log('precio');
+      if(verificacion<0 || verificacion<0.00){
+       let saldoAfavor:number=0;
+        saldoAfavor=verificacion*(-1);
+        console.log(saldoAfavor+'saldoAfavor');
+        this.saldoFavor=saldoAfavor;
+        this.total=0;
+        
+      }else{
+        this.saldoFavor=0;
+      }
+      var resSaldo:any;
+      resSaldo=this.saldoFavor.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      this.saldoFavor=resSaldo+'';
+      this.totalSaldoFavor=this.saldoFavor;
       
       res1=this.total.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       this.total=res1+'';
       
     }else{
       this.total=this.tot;
+      this.saldoFavor=this.saldoAfavor;
+
     }
   }
 
   //funcion para restar valores de la adeudo total
   restar(valor1: any) { 
       let res1 :any;
+      let saldoFavor:number=0;
+    let verificacion:number=0;
+    let strExSaldo:string='';
     this.transformarPago(valor1);
       if(valor1){
         valor1 = parseFloat(valor1); 
@@ -250,6 +297,7 @@ export class PagoPage implements OnInit {
        
         if( isNaN( valor1)) {
           this.total=this.tot;
+          this.saldoFavor=this.saldoFavor;
         }
         let strEx:string='';
         strEx = this.tot;
@@ -259,13 +307,41 @@ export class PagoPage implements OnInit {
           strEx = strEx.replace(re,"");
         }
         this.to=parseFloat(strEx);
-        this.total=this.to-valor1;
+        
+        strExSaldo = this.saldoAfavor;
+      var reSaldoFavor= /,/gi;
+    //primer paso: fuera puntoss
+      if(strExSaldo && strExSaldo.length>4){
+        strExSaldo = strExSaldo.replace(reSaldoFavor,""); 
+      }
+      
+      this.valorAfavor=parseFloat(strExSaldo);
+      saldoFavor=this.valorAfavor;
+      this.total=this.to-valor1-saldoFavor;
+
+      verificacion=this.total;
+      console.log('precio');
+      if(verificacion<0 || verificacion<0.00){
+       let saldoAfavor:number=0;
+        saldoAfavor=verificacion*(-1);
+        console.log(saldoAfavor+'saldoAfavor');
+        this.saldoFavor=saldoAfavor;
+        this.total=0;
+        
+      }else{
+        this.saldoFavor=0;
+      }
+      var resSaldo:any;
+      resSaldo=this.saldoFavor.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      this.saldoFavor=resSaldo+'';
+      this.totalSaldoFavor=this.saldoFavor;
         
         res1=this.total.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         this.total=res1+'';
         
       }else{
         this.total=this.tot;
+        this.saldoFavor=this.saldoAfavor;
       }
     }
   //funcion para dar formato al numero de pago

@@ -69,16 +69,11 @@
                       </ion-col>
                     </ion-row>
                     <ion-row>
-                      <ion-col class="ion-align-self-start">
-                        <div *ngIf="estadoDeudaCliente==false">
-                            <h6><b>Anticipo:</b> ${{venta.anticipo}} &nbsp;&nbsp;&nbsp;&nbsp;
-                            <b>Adeuda:</b> ${{venta.total}} </h6> 
+                      <ion-col class="ion-align-self-center">
+                        <div>
+                          <h6><b> Saldo a Favor:</b>${{venta.saldoFavor}}  &nbsp;&nbsp;&nbsp;&nbsp;
+                            <b>Adeuda:</b>${{venta.total}}</h6> 
                         </div>
-                        <div *ngIf="estadoDeudaCliente==true">
-                          <h6><b>Anticipo:</b> ${{venta.anticipo}} &nbsp;&nbsp;&nbsp;&nbsp;
-                          <b >Adeuda:</b> ${{adeudaEstado}} </h6>
-                          <h6><b>Saldo a Favor:</b> ${{valorFavor}}</h6> 
-                      </div>
                       </ion-col>  
                     </ion-row>
         </div> 
@@ -119,18 +114,12 @@
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col class="ion-align-self-center" *ngIf="estadoDeudaCliente==false">
+                  <ion-col class="ion-align-self-center">
                     <div>
-                      <h6><b>Adeuda:</b> ${{venta.total}} </h6> 
+                      <h6><b> Saldo a Favor:</b> ${{venta.saldoFavor}} &nbsp;&nbsp;&nbsp;&nbsp;
+                        <b>Adeuda:</b> ${{venta.total}}</h6> 
                     </div>
-                  </ion-col>  
-                  
-                  <ion-col class="ion-align-self-start" *ngIf="estadoDeudaCliente==true">
-                    <div>
-                        <h6><b>Adeuda:</b> ${{adeudaEstado}} &nbsp;&nbsp;&nbsp;&nbsp;
-                        <b> Saldo a Favor: </b> ${{valorFavor}} </h6>  
-                    </div>
-                  </ion-col>                      
+                  </ion-col>                       
                 </ion-row>
             </div>
           </div>  
@@ -145,18 +134,11 @@
                     </ion-col>
                   </ion-row>
                 <ion-row>
-                  <ion-col class="ion-align-self-start" *ngIf="estadoDeudaCliente==true">
+                  <ion-col class="ion-align-self-start">
                     <div>
-                      <h6 ><b>Pago:</b> ${{venta.pago}} &nbsp;&nbsp;&nbsp;&nbsp;
-                        <b>Adeuda:</b> ${{adeudaEstado}} </h6> 
-                        <h6><b>Saldo a favor: </b>${{valorFavor}}</h6> 
-                    </div>
-                  </ion-col>
-
-                  <ion-col class="ion-align-self-start" *ngIf="estadoDeudaCliente==false">
-                    <div>
-                        <h6><b>Pago:</b> ${{venta.pago}} &nbsp;&nbsp;&nbsp;&nbsp;
-                          <b>Adeuda: </b>${{venta.total}}</h6> 
+                      <h6><b>Pago:</b> ${{venta.pago}} &nbsp;&nbsp;&nbsp;&nbsp;
+                        <b>Saldo a favor: </b>${{venta.saldoFavor}} </h6> 
+                        <h6><b>Adeuda:</b> ${{venta.total}}</h6> 
                     </div>
                   </ion-col>
                 </ion-row>

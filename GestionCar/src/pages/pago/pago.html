@@ -23,6 +23,13 @@
         <ion-input  type="text"  name= "saldoActual" [(ngModel)]="venta.total"  ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" readonly></ion-input>
       </ion-item>
       <div class="spacer" style="height:10;" id="registroDeCliente-spacer9"></div>
+      <ion-item id="registroDeVentas-input10">
+        <ion-label position="stacked">
+          Saldo a Favor :
+        </ion-label>
+        <ion-input type="text" [(ngModel)]= "saldoFavor"   name="saldoFavor" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" placeholder="0.00" readonly></ion-input>
+      </ion-item>
+      <div class="spacer" style="height:10;" id="registroDeCliente-spacer9"></div>
       <ion-item id="registroDeCliente-input10">
         <ion-label>
           Monto pagado :
