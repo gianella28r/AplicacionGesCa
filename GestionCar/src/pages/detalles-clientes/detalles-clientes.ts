@@ -413,7 +413,7 @@ export class DetallesClientesPage implements OnInit {
       res2=totalC.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       sumaCobrado=res2+'';
       numeroCobros=this.numeroCobros-1;
-      this.dashboardf.updateUsuarioTotalVentas(this.numeroProductos,numeroVentas,numeroCobros,sumaVentas,sumaCobrado);
+      this.dashboardf.updateUsuarioTotalVentas(numeroVentas,numeroCobros,sumaVentas,sumaCobrado);
   }
 
 

@@ -177,7 +177,7 @@ export class VentaCreditoPage  implements OnInit{
   nombreProducto:any;
   precioProducto:any;
   captureDataUrl:any;
-  numeroproductos:any;
+  numeroProductos:any=0;
   productoss: Productos = {  
     id:'',
     nombre:'',
@@ -254,7 +254,8 @@ export class VentaCreditoPage  implements OnInit{
       this.numeroCobros=this.dashboard.contadorCobros;
       this.sumaVentas=this.dashboard.totalVendido;
       this.sumaCobrado=this.dashboard.totalCobrado;
-      this.numeroproductos=this.dashboard.contadorProductos;
+      this.numeroProductos=this.dashboard.contadorProductos;
+      console.log('numero de productos'+this.numeroProductos);
      
     });
   }
@@ -679,8 +680,11 @@ export class VentaCreditoPage  implements OnInit{
     if(this.estadoCantidadProductos==false ){
       this.productof.addNewProductoVentas(this.nombreProducto,this.precioReal,this.captureDataUrl);
       console.log('valores precio'+this.precioReal+this.precioTrans);
-      this.numeroproductos=this.numeroproductos+1;
-      console.log(this.numeroproductos+'numero de Productos');
+      let cantidad:number;
+      cantidad=this.numeroProductos+1;
+      this.numeroProductos=cantidad;
+      this.dashboardf.updateUsuarioContadorProductos(this.numeroProductos);
+      console.log(this.numeroProductos+'NumeroProductos');
     }else{
       console.log(' no se guardado producto');
     }
@@ -717,7 +721,7 @@ export class VentaCreditoPage  implements OnInit{
     console.log(this.itemSelected.nombre+'o'+this.verSeleccion.nombre);
     this.authf.getAuth().subscribe(user=>{
      
-    this.dashboardf.updateUsuarioTotalVentas(this.numeroproductos,this.numeroVentas,this.numeroCobros,this.sumaVentas,this.sumaCobrado);
+    this.dashboardf.updateUsuarioTotalVentas(this.numeroVentas,this.numeroCobros,this.sumaVentas,this.sumaCobrado);
     
     this.clientef.updateClienteDatosVenta(this.idCliente,this.numeroPa,this.numeroVen,this.totalVen,this.totalCo,this.saldoFavor);   
     this.ventaf.addNewVenta(value,this.idCliente);

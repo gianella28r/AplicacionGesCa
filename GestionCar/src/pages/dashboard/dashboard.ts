@@ -207,6 +207,7 @@ export class DashboardPage implements OnInit {
    //this.detalleUsuario();
     //this.graficaBalance();
     //this.allClientes();
+    this.allProductosUsuarios();
     this.getFechaActual();
     this.getDashboard();
     this.allClientes();
@@ -217,7 +218,6 @@ export class DashboardPage implements OnInit {
     this.getVencidos();
     this.getPorVencer();
     this.ClientesVentas();  
-    this.allProductosUsuarios();
     this.allNotasUsuarios();
   }
 
@@ -314,6 +314,7 @@ export class DashboardPage implements OnInit {
       this.contadorNo=notas.length;
       console.log(this.notas+'notita');
     });
+    
     console.log(this.notas+'notita');
     
   }
@@ -335,7 +336,7 @@ export class DashboardPage implements OnInit {
       console.log(this.notas+'notita');
     });
     console.log(this.notas+'notita');
-    
+    //this.dashboardf.updateUsuarioContadorProductos(this.contadorProductosTotales);
   }
 
   //funcion para generar las graficas
