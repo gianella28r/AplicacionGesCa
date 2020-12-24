@@ -141,6 +141,7 @@ export class DetallesClientesPage implements OnInit {
   estadoDeudaCliente: boolean=false;
   valorFavor: number;
   adeudaEstado:number=0;
+  saldoFavor: any='0';
  
   constructor(public navCtrl: NavController, private navParams: NavParams, 
     private clientef: ClientesProvider, public usuariof: UsuarioProvider,
@@ -183,6 +184,7 @@ export class DetallesClientesPage implements OnInit {
         this.numeroVen=cliente.numeroVentas;
         this.totalVen=cliente.totalVendido;
         this.totalCo=cliente.totalCobrado;
+        this.saldoFavor=cliente.saldoFavorC;
       }
       
     });    
@@ -510,7 +512,7 @@ export class DetallesClientesPage implements OnInit {
       res2=totalC.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       sumaCobrado=res2+'';
       numeroCobros=this.numeroPa-1;
-      this.clientef.updateClienteDatosVenta(this.idCliente,numeroCobros,numeroVentas,sumaVentas,sumaCobrado);
+      this.clientef.updateClienteDatosVenta(this.idCliente,numeroCobros,numeroVentas,sumaVentas,sumaCobrado,this.saldoFavor);
   }
 
 
@@ -522,7 +524,7 @@ export class DetallesClientesPage implements OnInit {
     this.detalleUsuarioDashboard();
     let alert = this.alertCtrl.create({
      title: 'Confirmar eliminación',
-     message: '¿Estás seguro de que desea eliminar esta Nota?',
+     message: '¿Estás seguro de que desea eliminar esta Transacción?',
      buttons: [
        {
          text: 'No',
@@ -539,18 +541,21 @@ export class DetallesClientesPage implements OnInit {
               if(venta.titulo=='Venta Contado'){
                 this.actualizarDatosDashboardVentas(venta.pago,venta.pago);
                 this.actualizarDatosClientesVentas(venta.pago,venta.pago);
-                this.ventaf.deleteVenta(venta,this.idCliente); 
+                //this.ventaf.deleteVenta(venta,this.idCliente); 
+                this.ventaf.updateVentaBorrado(venta,this.idCliente);
                 this.obtenerSaldoActual(); 
               }else if(venta.titulo=='Venta Credito'){
                 this.actualizarDatosDashboardVentas(venta.subTotal,venta.anticipo);
                 this.actualizarDatosClientesVentas(venta.subTotal,venta.anticipo);
-                this.ventaf.deleteVenta(venta,this.idCliente); 
+                //this.ventaf.deleteVenta(venta,this.idCliente); 
+                this.ventaf.updateVentaBorrado(venta,this.idCliente);
                 this.obtenerSaldoActual(); 
               }
               else if(venta.titulo=='Pago'){
                 this.actualizarDatosDashboardPago(venta.pago);
                 this.actualizarDatosClientesPago(venta.pago);
-                this.ventaf.deleteVenta(venta,this.idCliente); 
+                this.ventaf.updateVentaBorrado(venta,this.idCliente);
+               //this.ventaf.deleteVenta(venta,this.idCliente); 
                 this.obtenerSaldoActual(); 
               } 
                          

@@ -21,7 +21,7 @@
           <h2><ion-icon name="person"  item-start >&nbsp;&nbsp;<b>{{cliente.nombres}}</b></ion-icon>
               <button class="btn btn-primary btn-lg"  style="float:right;background-color:#CD6155;"  (click)="goToRegistroVentas()" >&nbsp;&nbsp;<b>Venta</b>&nbsp;&nbsp;</button> 
           </h2> 
-          <h3 *ngIf="estadoDeudaCliente==true" > <b>Saldo a Favor: </b> ${{valorFavor}} <button class="btn btn-warning btn-lg" style="float:right;background-color:#488aff;"  (click)="goToRegistroPagoCliente()" >&nbsp;&nbsp;<b style="color:white;" >Pago</b>&nbsp;&nbsp;&nbsp;</button></h3>
+          <!--<h3 *ngIf="estadoDeudaCliente==true" > <b>Saldo a Favor: </b> ${{venta.valorFavor}} <button class="btn btn-warning btn-lg" style="float:right;background-color:#488aff;"  (click)="goToRegistroPagoCliente()" >&nbsp;&nbsp;<b style="color:white;" >Pago</b>&nbsp;&nbsp;&nbsp;</button></h3>-->
           <h3 *ngIf="estadoDeudaCliente==false"> <b>Adeuda: </b> ${{cliente.adeuda}} <button class="btn btn-warning btn-lg" style="float:right;background-color:#488aff;"  (click)="goToRegistroPagoCliente()" >&nbsp;&nbsp;<b style="color:white;" >Pago</b>&nbsp;&nbsp;&nbsp;</button></h3>    
       </ion-item>  
       <p style="text-align: center;background-color: #4c8dff">Transacciones</p>  

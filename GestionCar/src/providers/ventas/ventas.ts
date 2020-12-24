@@ -48,7 +48,7 @@ export class VentasProvider {
   getAllVentas(idCliente:any):Observable<Ventas[]>{
     let currentUser = firebase.auth().currentUser;
     this.ventaCollection = this.afs.collection('Usuarios').doc( currentUser.uid)
-    .collection('Clientes').doc(idCliente).collection('Ventas', ref=>ref.orderBy('fechaCompra', 'desc'));
+    .collection('Clientes').doc(idCliente).collection('Ventas', ref=>ref.where("estadoTransaccion", "==", true).orderBy('fechaCompra', 'desc'));
     this.ventas=this.ventaCollection.snapshotChanges()
     .map(changes => {
       return changes.map(action=>{
@@ -64,7 +64,7 @@ export class VentasProvider {
   getAnteriorVenta(idCliente:any):Observable<Ventas[]>{
     let currentUser = firebase.auth().currentUser;
     this.ventaCollection = this.afs.collection('Usuarios').doc( currentUser.uid)
-    .collection('Clientes').doc(idCliente).collection('Ventas', ref=>ref.orderBy('fechaCompra', 'desc').limit(1));
+    .collection('Clientes').doc(idCliente).collection('Ventas', ref=>ref.where("estadoTransaccion", "==", true).orderBy('fechaCompra', 'desc').limit(1));
     this.ventas=this.ventaCollection.snapshotChanges()
     .map(changes => {
       return changes.map(action=>{
@@ -159,7 +159,7 @@ export class VentasProvider {
   getAllPagosDia(idCliente:any,fecha:any):Observable<Ventas[]>{
     let currentUser = firebase.auth().currentUser;
     this.ventaDiaCollection = this.afs.collection('Usuarios').doc( currentUser.uid)
-    .collection('Clientes').doc(idCliente).collection('Ventas', ref=>ref.where('fechaPago', '==', fecha));
+    .collection('Clientes').doc(idCliente).collection('Ventas', ref=>ref.where("estadoTransaccion", "==", true).where('fechaPago', '==', fecha));
     
     this.ventasDia=this.ventaDiaCollection .snapshotChanges()
       .map(changes => {
@@ -170,5 +170,21 @@ export class VentasProvider {
       } );
     });
     return this.ventasDia;
+  }
+
+  //metodo para actualizar el total de cobros en cliente
+  updateVentaBorrado(venta:any,idCliente){
+    let currentUser = firebase.auth().currentUser;
+    this.ventaDoc= this.afs.doc(`Usuarios/${currentUser.uid}/Clientes/${idCliente}/Ventas/${venta.id}`);
+    return this.ventaDoc.update({
+      estadoTransaccion:false
+    })
+   .then(function() {
+      console.log("Document successfully updated!");
+    })
+  .catch(function(error) {
+    // The document probably doesn't exist.
+    console.error("Error updating document: ", error);
+    });
   }
 }

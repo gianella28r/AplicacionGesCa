@@ -509,6 +509,7 @@ export class VentaContadoPage implements OnInit  {
     value.cantidad=this.cantidad;
     value.fechaPago=this.fecha;
     value.saldoFavor=this.saldoFavor;
+    value.estadoTransaccion=true;
     this.numeroVentas=this.numeroVentas+1;
     this.numeroCobros=this.numeroCobros+1;
     this.numeroPa=this.numeroPa+1;
@@ -517,7 +518,7 @@ export class VentaContadoPage implements OnInit  {
 
     this.authf.getAuth().subscribe(user=>{
       this.dashboardf.updateUsuarioTotalVentas(this.numeroproductos,this.numeroVentas,this.numeroCobros,this.sumaVentas,this.sumaCobrado);
-      this.clientef.updateClienteDatosVenta(this.idCliente,this.numeroPa,this.numeroVen,this.totalVen,this.totalCo); 
+      this.clientef.updateClienteDatosVenta(this.idCliente,this.numeroPa,this.numeroVen,this.totalVen,this.totalCo,this.saldoFavor); 
       this.ventaf.addNewVenta(value,this.idCliente);
     });
     console.log(this.idCliente);

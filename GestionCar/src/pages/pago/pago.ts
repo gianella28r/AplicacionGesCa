@@ -410,6 +410,8 @@ export class PagoPage implements OnInit {
     value.fechaCompra=(new Date()).getTime();
     value.pago=this.precioReal;
     value.fechaPago=this.fecha;
+    value.saldoFavor=this.saldoFavor;
+    value.estadoTransaccion=true;
     this.numeroPa=this.numeroPa+1;
     this.authf.getAuth().subscribe(user=>{
       this.ventaf.addNewVenta(value,this.idCliente);
@@ -609,7 +611,7 @@ export class PagoPage implements OnInit {
             strE = strE.replace(re,"");
           }
           let ordenA=parseFloat(strE);
-          this.clientef.updateClientePago(this.idCliente,this.venta.total,ordenA,this.sumaCobradoCli,this.numeroPa,this.fechaProximaPagar); 
+          this.clientef.updateClientePago(this.idCliente,this.venta.total,ordenA,this.sumaCobradoCli,this.numeroPa,this.fechaProximaPagar,this.saldoFavor); 
         }
       } 
     });

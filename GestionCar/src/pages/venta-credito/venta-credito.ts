@@ -718,7 +718,7 @@ export class VentaCreditoPage  implements OnInit{
      
     this.dashboardf.updateUsuarioTotalVentas(this.numeroproductos,this.numeroVentas,this.numeroCobros,this.sumaVentas,this.sumaCobrado);
     
-    this.clientef.updateClienteDatosVenta(this.idCliente,this.numeroPa,this.numeroVen,this.totalVen,this.totalCo);   
+    this.clientef.updateClienteDatosVenta(this.idCliente,this.numeroPa,this.numeroVen,this.totalVen,this.totalCo,this.saldoFavor);   
     this.ventaf.addNewVenta(value,this.idCliente);
     this.obtenerSaldoActual(); 
     });

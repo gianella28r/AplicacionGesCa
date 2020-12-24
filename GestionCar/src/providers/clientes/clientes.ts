@@ -66,7 +66,7 @@ export class ClientesProvider {
     console.log('Hello ClientesProvider Provider'+currentUser);
     //this.clienteCollection= this.afs.collection('Clientes', ref=>ref);
     this.clienteCollection= this.afs.collection('Usuarios').doc( currentUser.uid)
-    .collection('Clientes', ref=>ref.orderBy('nombres','asc'));
+    .collection('Clientes', ref=>ref.where("estadoCliente", "==", true).orderBy('nombres','asc'));
     this.clientes=this.clienteCollection.snapshotChanges()
     .map(changes => {
       return changes.map(action=>{
@@ -120,8 +120,25 @@ export class ClientesProvider {
     });
   }
 
+   //metodo para hacer borrado logico
+   updateClienteborrado(cliente:any){
+    console.log('entroaui');
+    let currentUser = firebase.auth().currentUser;
+    this.clienteDoc= this.afs.doc(`Usuarios/${currentUser.uid}/Clientes/${cliente}`);
+    return this.clienteDoc.update({
+      estadoCliente: false,
+    })
+   .then(function() {
+      console.log("Document successfully updated!");
+    })
+  .catch(function(error) {
+    // The document probably doesn't exist.
+    console.error("Error updating document: ", error);
+    });
+  }
+
   //metodo para actualizar el datos de cliente
-  updateClienteDatosVenta(cliente:any,numeroP:any,numeroVe:any,totalVen:any,totalCo:any){
+  updateClienteDatosVenta(cliente:any,numeroP:any,numeroVe:any,totalVen:any,totalCo:any,saldoFavor:any){
     console.log('entroaui');
     let currentUser = firebase.auth().currentUser;
     this.clienteVentasDoc= this.afs.doc(`Usuarios/${currentUser.uid}/Clientes/${cliente}`);
@@ -129,7 +146,8 @@ export class ClientesProvider {
       numeroPagos:numeroP,
       numeroVentas:numeroVe,
       totalVendido:totalVen,
-      totalCobrado:totalCo
+      totalCobrado:totalCo,
+      saldoFavorC:saldoFavor,
     })
    .then(function() {
       console.log("Document successfully updated!");
@@ -151,7 +169,7 @@ export class ClientesProvider {
    getTopCincoClientes():Observable<Clientes[]>{
     let currentUser = firebase.auth().currentUser;
     this.clienteCincoCollection = this.afs.collection('Usuarios').doc( currentUser.uid)
-    .collection('Clientes', ref=>ref.orderBy('orden', 'desc').limit(5));
+    .collection('Clientes', ref=>ref.where("estadoCliente", "==", true).orderBy('orden', 'desc').limit(5));
     this.clientesCinco=this.clienteCincoCollection.snapshotChanges()
     .map(changes => {
       return changes.map(action=>{
@@ -183,7 +201,7 @@ export class ClientesProvider {
   }
 
    //metodo para actualizar el campo adeuda de cliente
-   updateClientePago(cliente:any, ventaTotal:any,ordenA:number,totalCliCo:any,numeroPa:number,fechaProximoCo:string){
+   updateClientePago(cliente:any, ventaTotal:any,ordenA:number,totalCliCo:any,numeroPa:number,fechaProximoCo:string,saldoFavor:any){
     console.log('entroaui');
     let currentUser = firebase.auth().currentUser;
     this.clienteDashDoc= this.afs.doc(`Usuarios/${currentUser.uid}/Clientes/${cliente}`);
@@ -192,7 +210,8 @@ export class ClientesProvider {
       orden:ordenA,
       totalCobrado:totalCliCo,
       numeroPagos:numeroPa,
-      fechaCobro:fechaProximoCo
+      fechaCobro:fechaProximoCo,
+      saldoFavorC:saldoFavor
     })
    .then(function() {
       console.log("Document successfully updated!");
@@ -224,7 +243,7 @@ export class ClientesProvider {
   getAllClientesVentas():Observable<Clientes[]>{
     let currentUser = firebase.auth().currentUser;
     this.clienteVentasCollection = this.afs.collection('Usuarios').doc( currentUser.uid)
-      .collection('Clientes');
+      .collection('Clientes', ref=>ref.where("estadoCliente", "==", true));
     
     this.clientesVentas=this.clienteVentasCollection.snapshotChanges()
       .map(changes => {
@@ -241,7 +260,7 @@ export class ClientesProvider {
    getAllClientesCuentasCobrar():Observable<Clientes[]>{
     let currentUser = firebase.auth().currentUser;
     this.clienteCuentaCobrarCollection = this.afs.collection('Usuarios').doc( currentUser.uid)
-      .collection('Clientes', ref=>ref.where('adeuda', '>', '0.00'));
+      .collection('Clientes', ref=>ref.where("estadoCliente", "==", true).where('adeuda', '>', '0.00'));
     
     this.clientesCuentaCobrar=this.clienteCuentaCobrarCollection.snapshotChanges()
       .map(changes => {
@@ -258,7 +277,7 @@ export class ClientesProvider {
   getAllClientesCuentasCorriente():Observable<Clientes[]>{
     let currentUser = firebase.auth().currentUser;
     this.clienteCuentaCorrienteCollection = this.afs.collection('Usuarios').doc( currentUser.uid)
-      .collection('Clientes', ref=>ref.where('adeuda', '==', '0.00'));
+      .collection('Clientes', ref=>ref.where("estadoCliente", "==", true).where('adeuda', '==', '0.00'));
     
     this.clientesCorriente=this.clienteCuentaCorrienteCollection.snapshotChanges()
       .map(changes => {
@@ -275,7 +294,7 @@ export class ClientesProvider {
   getAllClientesCuentasProximas(fecha:any):Observable<Clientes[]>{
     let currentUser = firebase.auth().currentUser;
     this.clienteCuentaProximasCollection = this.afs.collection('Usuarios').doc( currentUser.uid)
-      .collection('Clientes', ref=>ref.where('fechaCobro', '>',fecha));
+      .collection('Clientes', ref=>ref.where("estadoCliente", "==", true).where('fechaCobro', '>',fecha));
     
     this.clientesProximo=this.clienteCuentaProximasCollection.snapshotChanges()
       .map(changes => {
@@ -292,7 +311,7 @@ export class ClientesProvider {
   getAllClientesCuentasPorVencer(fecha:any):Observable<Clientes[]>{
     let currentUser = firebase.auth().currentUser;
     this.clienteCuentaPorVencerCollection = this.afs.collection('Usuarios').doc( currentUser.uid)
-      .collection('Clientes', ref=>ref.where('fechaCobro', '==', fecha));
+      .collection('Clientes', ref=>ref.where("estadoCliente", "==", true).where('fechaCobro', '==', fecha));
     
     this.clientesPorVencer=this.clienteCuentaPorVencerCollection.snapshotChanges()
       .map(changes => {
@@ -309,7 +328,7 @@ export class ClientesProvider {
    getAllClientesCuentasVencidas(fecha:any):Observable<Clientes[]>{
     let currentUser = firebase.auth().currentUser;
     this.clienteCuentaVencidasCollection = this.afs.collection('Usuarios').doc( currentUser.uid)
-      .collection('Clientes', ref=>ref.where('fechaCobro', '<', fecha));
+      .collection('Clientes', ref=>ref.where("estadoCliente", "==", true).where('fechaCobro', '<', fecha));
     
     this.clientesVencidas=this.clienteCuentaVencidasCollection.snapshotChanges()
       .map(changes => {
