@@ -145,6 +145,10 @@ export class VentaContadoPage implements OnInit  {
   estadoCantidadProductos:boolean=false;
   nombreProducto: string;
   saldoFavor: any='0';
+  totalSaldoFavor: any;
+  valorAfavor: any='0';
+  saldoAfavor: any='0';
+  valorFavor: any='0';
   constructor( public navCtrl: NavController, private authf: AuthProvider ,public navParams: NavParams, 
   private clientef:ClientesProvider,private ventaf: VentasProvider,public dashboardf: DashboardProvider, private productof:ProductosProvider) {
     this.idCliente = navParams.get("id");
@@ -218,6 +222,8 @@ export class VentaContadoPage implements OnInit  {
         for(var i=0;i<ventass.length; i++){
           this.venta=this.ventass[i];
           this.saldoFavor=this.venta.saldoFavor;
+          this.saldoAfavor=this.venta.saldoFavor;
+          this.valorFavor=this.saldoAfavor;
        }  
     }); 
   }
@@ -238,6 +244,9 @@ export class VentaContadoPage implements OnInit  {
   //funcion para obtener el campo precio y hacer calculos
   calcularPrecio(valor1: any) { 
     let res2:any;
+    let saldoFavor:number=0;
+    let verificacion:number=0;
+    let strExSaldo:string='';
     console.log(valor1+'pruebaproducto');
     this.transformarPrecio(valor1);
     if(this.cantidad==null){
@@ -249,6 +258,7 @@ export class VentaContadoPage implements OnInit  {
       console.log(this.p+'p');
       if( isNaN(this.p)) {
         this.subTotal='';
+        this.valorFavor=this.saldoAfavor;
       }
       let strEx:string='';
       strEx = valor1;
@@ -258,12 +268,36 @@ export class VentaContadoPage implements OnInit  {
         strEx = strEx.replace(re,"");
       }
       this.to=parseFloat(strEx);
-      this.subTotal=this.p*this.cantidad;
+      strExSaldo = this.saldoAfavor;
+      var reSaldoFavor= /,/gi;
+    //primer paso: fuera puntoss
+      if(strExSaldo && strExSaldo.length>4){
+        strExSaldo = strExSaldo.replace(reSaldoFavor,""); 
+      }
+      this.valorAfavor=parseFloat(strExSaldo);
+      saldoFavor=this.valorAfavor;
+      if(saldoFavor>0 ){
+        this.subTotal=this.p*this.cantidad-saldoFavor;
+        let valorTotal:any;
+        valorTotal=this.subTotal;
+        if(valorTotal<0 || valorTotal<0.00){
+          let saldoAfavor:number=0;
+           saldoAfavor=valorTotal*(-1);
+           console.log(saldoAfavor+'saldoAfavor');
+           this.saldoFavor=saldoAfavor;
+           this.subTotal=0;
+         }else{
+           this.saldoFavor=0;
+         }
+      }else{
+        this.subTotal=this.p*this.cantidad;
+      }
       this.ventaS=this.subTotal;
       res2=this.subTotal.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       this.subTotal=res2+'';
     }else{
       this.subTotal='';
+      this.saldoFavor=this.valorFavor;
     }
   }
 
@@ -283,6 +317,9 @@ export class VentaContadoPage implements OnInit  {
   //funcion para obtener el campo cantidad y hacer calculos
   calcularCantida(valor1:any){
     this.cantidad=valor1;
+    let saldoFavor:number=0;
+    let verificacion:number=0;
+    let strExSaldo:string='';
     let res2 :any;
     if(this.p==null){
       this.p=0;
@@ -290,15 +327,41 @@ export class VentaContadoPage implements OnInit  {
     if(valor1 ){
       if( isNaN( this.cantidad)) {
         this.subTotal='';
+        this.valorFavor=this.saldoAfavor;
         console.log(this.total+'toalcantida');
       }
-      this.subTotal=this.p*this.cantidad;
+      this.saldoFavor=this.valorFavor;
+
+      strExSaldo = this.saldoAfavor;
+      var reSaldoFavor= /,/gi;
+    //primer paso: fuera puntoss
+      if(strExSaldo && strExSaldo.length>4){
+        strExSaldo = strExSaldo.replace(reSaldoFavor,""); 
+      }
+      this.valorAfavor=parseFloat(strExSaldo);
+      saldoFavor=this.valorAfavor;
+      if(saldoFavor>0 ){
+        this.subTotal=this.p*this.cantidad-saldoFavor;
+        let valorTotal:any;
+        valorTotal=this.subTotal;
+        if(valorTotal<0 || valorTotal<0.00){
+          let saldoAfavor:number=0;
+           saldoAfavor=valorTotal*(-1);
+           console.log(saldoAfavor+'saldoAfavor');
+           this.saldoFavor=saldoAfavor;
+           this.subTotal=0;
+         }else{
+           this.saldoFavor=0;
+         }
+      }else{
+        this.subTotal=this.p*this.cantidad;
+      }
       this.ventaS=this.subTotal;
       res2=this.subTotal.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      this.subTotal=res2+'';
-        
+      this.subTotal=res2+'';  
     }else{
       this.subTotal='';
+      this.saldoFavor=this.valorFavor;
     }
   }
 
