@@ -7,6 +7,5 @@ export interface Notas{
     clienNombre?:string;
     clienId?:string;
     imagenNota?:any;
-    
-
+    estadoNota?:boolean;
 }

@@ -8,4 +8,5 @@ export interface Productos{
     descripcion?:string;
     image?:any;
     idImagen?:any;
+    estadoProducto?:boolean;
 }

@@ -30,6 +30,7 @@ nota: Notas = {
     clienNombre:'',
     clienId:'',
     imagenNota:'',
+    estadoNota:true,
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams,

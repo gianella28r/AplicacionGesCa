@@ -115,13 +115,14 @@ export class ProductosPage implements OnInit  {
          text: 'Si',
          handler: () => {
               // AquÍ borramos el sitio en la base de datos
-              if(producto.image!="assets/imgs/nimg.jpg"){
+              /*if(producto.image!="assets/imgs/nimg.jpg"){
                this.productof.deleteImagen(producto.image);
-              } 
+              } */
               this.numeroProductos=this.numeroProductos-1;
               this.dashboardf.updateUsuarioContadorProductos(this.numeroProductos);
             this.navCtrl.setRoot(ProductosPage);
-            this.productof.deleteProducto(producto);
+            //this.productof.deleteProducto(producto);
+            this.productof.updateProductoBorrado(producto);
              
           }
        }

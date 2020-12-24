@@ -29,6 +29,7 @@ export class EditarProductoPage implements OnInit  {
     descripcion:'',
     image:'',
     idImagen:'',
+    estadoProducto:true,
     } 
   precioReal: any;
   precioTrans: string;

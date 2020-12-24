@@ -141,6 +141,7 @@ export class VentaContadoPage implements OnInit  {
     image:'',
     idImagen:'',
     precioTransformado:'',
+    estadoProducto:true,
   } 
   estadoCantidadProductos:boolean=false;
   nombreProducto: string;

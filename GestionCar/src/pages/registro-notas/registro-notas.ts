@@ -138,6 +138,7 @@ export class RegistroNotasPage implements OnInit{
       value.clienId=this.cliente.id;
       value.clienNombre=this.cliente.nombres;
       value.imagenNota=this.captureDataUrl;
+      value.estadoNota=true;
       this.notaf.addNewNota(value);
     });
     this.navCtrl.pop();

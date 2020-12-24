@@ -34,6 +34,7 @@ clientes:Clientes[];
     clienNombre:'',
     clienId:'',
     imagenNota:'',
+    estadoNota:true,
   } 
   cliente: Clientes = {  
     id:'',
@@ -158,6 +159,7 @@ clientes:Clientes[];
     value.clienNombre=this.verSeleccion.nombres;
     value.clienId=this.verSeleccion.id;
     value.imagenNota=this.captureDataUrl;
+    value.estadoNota=true;
    
     this.notaf.addNewNota(value);
     this.navCtrl.pop();

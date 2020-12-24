@@ -172,7 +172,7 @@ export class VentasProvider {
     return this.ventasDia;
   }
 
-  //metodo para actualizar el total de cobros en cliente
+  //metodo para hacer borrado logico
   updateVentaBorrado(venta:any,idCliente){
     let currentUser = firebase.auth().currentUser;
     this.ventaDoc= this.afs.doc(`Usuarios/${currentUser.uid}/Clientes/${idCliente}/Ventas/${venta.id}`);

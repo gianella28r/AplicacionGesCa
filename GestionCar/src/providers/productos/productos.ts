@@ -52,7 +52,9 @@ export class ProductosProvider {
     precioTransformado:precioProductoVenta ,
     descripcion:'',
     image:captureDataUrl,
-    idImagen:captureDataUrl});
+    idImagen:captureDataUrl,
+    estadoProducto:true
+    });
   }
   
   
@@ -61,7 +63,7 @@ export class ProductosProvider {
     console.log('Hello ProductosProvider Provider');
     let currentUser = firebase.auth().currentUser;
     this.productoCollection= this.afs.collection('Usuarios').doc(currentUser.uid)
-    .collection('Productos', ref=>ref.orderBy('nombre','asc'));
+    .collection('Productos', ref=>ref.where("estadoProducto", "==", true).orderBy('nombre','asc'));
     this.productos=this.productoCollection.snapshotChanges()
     .map(changes => {
       return changes.map(action=>{
@@ -94,7 +96,7 @@ export class ProductosProvider {
  getOneProductos(nombreProducto:any):Observable<Productos[]>{//metodo para obtener todos los clientes con cuentas al corriente
       let currentUser = firebase.auth().currentUser;
       this.productoFiltroCollection = this.afs.collection('Usuarios').doc( currentUser.uid)
-        .collection('Productos', ref=>ref.where('nombre', '==', nombreProducto));
+        .collection('Productos', ref=>ref.where("estadoProducto", "==", true).where('nombre', '==', nombreProducto));
       
       this.productosFiltro=this.productoFiltroCollection.snapshotChanges()
         .map(changes => {
@@ -152,4 +154,20 @@ export class ProductosProvider {
       //alert('borrado no');
     });
   }
+
+  updateProductoBorrado(producto:any){
+    let currentUser = firebase.auth().currentUser;
+    this.productoDoc= this.afs.doc(`Usuarios/${currentUser.uid}/Productos/${producto.id}`);
+    return this.productoDoc.update({
+      estadoProducto:false
+    })
+   .then(function() {
+      console.log("Document successfully updated!");
+    })
+  .catch(function(error) {
+    // The document probably doesn't exist.
+    console.error("Error updating document: ", error);
+    });
+  }
 }
+

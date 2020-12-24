@@ -43,7 +43,7 @@ export class NotasProvider {
     let currentUser = firebase.auth().currentUser;
     //this.clienteCollection= this.afs.collection('Clientes', ref=>ref);
     this.notaCollection= this.afs.collection('Usuarios').doc( currentUser.uid)
-    .collection('Notas', ref=>ref.orderBy('fechaPublicacion','desc'));
+    .collection('Notas', ref=>ref.where("estadoNota", "==", true).orderBy('fechaPublicacion','desc'));
     this.notas=this.notaCollection.snapshotChanges()
     .map(changes => {
       return changes.map(action=>{
@@ -90,11 +90,7 @@ export class NotasProvider {
       //let fecha="2019-11-30";
     let currentUser = firebase.auth().currentUser;
     this.notaCollectionRecordatorio = this.afs.collection('Usuarios').doc( currentUser.uid)
-      .collection('Notas', ref=>{
-      // Compose a query using multiple .where() methods
-      return ref
-              .where('fechaAviso', '==', fecha)
-    } );
+      .collection('Notas', ref=>ref.where("estadoNota", "==", true).where('fechaAviso', '==', fecha));
       //this.notas = this.notaCollection.valueChanges();
     
     this.notasRecordatorio=this.notaCollectionRecordatorio.snapshotChanges()
@@ -106,5 +102,19 @@ export class NotasProvider {
       } );
     });
     return this.notasRecordatorio;
+  }
+  updateNotaBorrado(nota:any){
+    let currentUser = firebase.auth().currentUser;
+    this.notaDoc= this.afs.doc(`Usuarios/${currentUser.uid}/Notas/${nota.id}`);
+    return this.notaDoc.update({
+      estadoNota:false
+    })
+   .then(function() {
+      console.log("Document successfully updated!");
+    })
+  .catch(function(error) {
+    // The document probably doesn't exist.
+    console.error("Error updating document: ", error);
+    });
   }
 }

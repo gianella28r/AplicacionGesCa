@@ -167,6 +167,7 @@ export class VentaCreditoPage  implements OnInit{
     totalVendido:'',
     totalCobrado:'',
     orden:0,
+    estadoCliente:true,
   } 
   numeroPa: any;
   numeroVen: any;

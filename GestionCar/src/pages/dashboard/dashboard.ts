@@ -217,6 +217,8 @@ export class DashboardPage implements OnInit {
     this.getVencidos();
     this.getPorVencer();
     this.ClientesVentas();  
+    this.allProductosUsuarios();
+    this.allNotasUsuarios();
   }
 
   ngAfterViewInit(){

@@ -32,6 +32,7 @@ export class RegistroProductoPage implements OnInit  {
     image:'',
     idImagen:'',
     precioTransformado:'',
+    estadoProducto:true,
   } 
   precioTrans: any;
   precioReal: any;
@@ -137,6 +138,7 @@ export class RegistroProductoPage implements OnInit  {
     value.idImagen=this.shareImagen;
     value.precioTransformado=this.precioTrans;
     value.precioVenta=this.precioReal;
+    value.estadoProducto=true;
     this.productof.addNewProducto(value);
     this.numeroProductos=this.numeroProductos+1;
     this.dashboardf.updateUsuarioContadorProductos(this.numeroProductos);

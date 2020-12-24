@@ -123,12 +123,13 @@ export class NotasUsuarioPage implements OnInit {
           text: 'Si',
           handler: () => {
                // AquÍ borramos el sitio en la base de datos
-               if(nota.imagenNota!=''){
+              /* if(nota.imagenNota!=''){
                 this.productof.deleteImagen(nota.imagenNota);
-               } 
+               } */
                this.numeroNotas=this.numeroNotas-1;
                this.dashboardf.updateUsuarioContadorNotas(this.numeroNotas);
-               this.notaf.deleteNota(nota);
+               //this.notaf.deleteNota(nota);
+               this.notaf.updateNotaBorrado(nota);
                
 
            }
