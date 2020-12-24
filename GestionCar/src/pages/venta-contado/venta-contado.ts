@@ -150,6 +150,8 @@ export class VentaContadoPage implements OnInit  {
   valorAfavor: any='0';
   saldoAfavor: any='0';
   valorFavor: any='0';
+  saldoFavorDas: number=0;
+  subTotalP: number;
   constructor( public navCtrl: NavController, private authf: AuthProvider ,public navParams: NavParams, 
   private clientef:ClientesProvider,private ventaf: VentasProvider,public dashboardf: DashboardProvider, private productof:ProductosProvider) {
     this.idCliente = navParams.get("id");
@@ -280,6 +282,7 @@ export class VentaContadoPage implements OnInit  {
       saldoFavor=this.valorAfavor;
       if(saldoFavor>0 ){
         this.subTotal=this.p*this.cantidad-saldoFavor;
+        this.subTotalP=this.p*this.cantidad;
         let valorTotal:any;
         valorTotal=this.subTotal;
         if(valorTotal<0 || valorTotal<0.00){
@@ -287,12 +290,14 @@ export class VentaContadoPage implements OnInit  {
            saldoAfavor=valorTotal*(-1);
            console.log(saldoAfavor+'saldoAfavor');
            this.saldoFavor=saldoAfavor;
+           this.saldoFavorDas=saldoAfavor;
            this.subTotal=0;
          }else{
            this.saldoFavor=0;
          }
       }else{
         this.subTotal=this.p*this.cantidad;
+        this.subTotalP=this.p*this.cantidad;
       }
       this.ventaS=this.subTotal;
       res2=this.subTotal.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -344,6 +349,7 @@ export class VentaContadoPage implements OnInit  {
       saldoFavor=this.valorAfavor;
       if(saldoFavor>0 ){
         this.subTotal=this.p*this.cantidad-saldoFavor;
+        this.subTotalP=this.p*this.cantidad;
         let valorTotal:any;
         valorTotal=this.subTotal;
         if(valorTotal<0 || valorTotal<0.00){
@@ -351,12 +357,14 @@ export class VentaContadoPage implements OnInit  {
            saldoAfavor=valorTotal*(-1);
            console.log(saldoAfavor+'saldoAfavor');
            this.saldoFavor=saldoAfavor;
+           this.saldoFavorDas=saldoAfavor;
            this.subTotal=0;
          }else{
            this.saldoFavor=0;
          }
       }else{
         this.subTotal=this.p*this.cantidad;
+        this.subTotalP=this.p*this.cantidad;
       }
       this.ventaS=this.subTotal;
       res2=this.subTotal.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -402,7 +410,7 @@ export class VentaContadoPage implements OnInit  {
         strEx = strEx.replace(re,"");
       }
       let tot=parseFloat(strEx);
-      let totalV=tot+ventas;
+      let totalV=tot+this.subTotalP;
       res1=totalV.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       this.sumaVentas=res1+'';
     //suma de cobros
@@ -414,7 +422,8 @@ export class VentaContadoPage implements OnInit  {
         strE = strE.replace(re,"");
       }
       let totC=parseFloat(strE);
-      let totalC=totC+ventas;
+      let totalC:number=0;
+      totalC=totC+this.subTotalP;
       res2=totalC.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       this.sumaCobrado=res2+'';
   }
@@ -447,9 +456,10 @@ export class VentaContadoPage implements OnInit  {
         strEx = strEx.replace(re,"");
       }
       let tot=parseFloat(strEx);
-      let totalV=tot+ventas;
+      let totalV=tot+this.subTotalP;
       res1=totalV.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       this.totalVen=res1+'';
+
     //suma de cobros
       let strE:string='';
       strE= tCobros;
@@ -459,7 +469,7 @@ export class VentaContadoPage implements OnInit  {
         strE = strE.replace(re,"");
       }
       let totC=parseFloat(strE);
-      let totalC=totC+ventas;
+      let totalC=totC+this.subTotalP;
       res2=totalC.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       this.totalCo=res2+'';
   }

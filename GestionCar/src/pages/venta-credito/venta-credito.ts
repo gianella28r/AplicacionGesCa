@@ -196,6 +196,7 @@ export class VentaCreditoPage  implements OnInit{
   totalSaldoFavor: any;
   valorAfavor: any='0';
   saldoAfavor: any='0';
+  saldoFavorD: number=0;
   
   
  constructor( public navCtrl: NavController, private authf: AuthProvider ,public dashboardf: DashboardProvider,public navParams: NavParams, private clientef:ClientesProvider,private ventaf: VentasProvider,private productof:ProductosProvider) {
@@ -366,9 +367,12 @@ export class VentaCreditoPage  implements OnInit{
         saldoAfavor=verificacion*(-1);
         console.log(saldoAfavor+'saldoAfavor');
         this.saldoFavor=saldoAfavor;
+        this.saldoFavorD=saldoAfavor;
         this.total=0;
       }else{
         this.saldoFavor=0;
+        this.saldoFavorD=0;
+      
       }
       var resSaldo:any;
       resSaldo=this.saldoFavor.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -382,6 +386,7 @@ export class VentaCreditoPage  implements OnInit{
     }else{
       this.total=this.t;
       this.saldoFavor=this.valorFavor;
+      //this.saldoFavorD=this.saldoFavor;
       this.subTotal='';
       
     }
@@ -458,9 +463,11 @@ export class VentaCreditoPage  implements OnInit{
         saldoAfavor=verificacion*(-1);
         console.log(saldoAfavor+'saldoAfavor');
         this.saldoFavor=saldoAfavor;
+        this.saldoFavorD=saldoAfavor;
         this.total=0;
       }else{
         this.saldoFavor=0;
+        this.saldoFavorD=0;
       }
       let resSaldo:string;
       resSaldo=this.saldoFavor.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -475,6 +482,7 @@ export class VentaCreditoPage  implements OnInit{
     }else{
       this.total=this.t;
       this.saldoFavor=this.saldoAfavor;
+      //this.saldoFavorD=this.saldoAfavor;
       this.subTotal='';
     }
   }
@@ -526,8 +534,10 @@ export class VentaCreditoPage  implements OnInit{
         console.log(saldoAfavor+'saldoAfavor');
         this.total=0;
         this.saldoFavor=saldoAfavor;
+        this.saldoFavorD=saldoAfavor;
       }else{
         this.saldoFavor=0;
+        this.saldoFavorD=0;
       }
       
       var resSaldo:any;
@@ -605,7 +615,7 @@ export class VentaCreditoPage  implements OnInit{
         strE = strE.replace(re,"");
       }
       let totC=parseFloat(strE);
-      let totalC=totC+this.anticipo;
+      let totalC=totC+this.anticipo-this.saldoFavorD;
       res2=totalC.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       this.sumaCobrado=res2+'';
   }
@@ -645,7 +655,7 @@ export class VentaCreditoPage  implements OnInit{
         strE = strE.replace(re,"");
       }
       let totC=parseFloat(strE);
-      let totalC=totC+this.anticipo;
+      let totalC=totC+this.anticipo-this.saldoFavorD;
       res2=totalC.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       this.totalCo=res2+'';
   }

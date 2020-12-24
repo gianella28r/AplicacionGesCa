@@ -147,6 +147,7 @@ export class PagoPage implements OnInit {
   valorAfavor: any='0';
   saldoAfavor: any='0';
   valorFavor:number=0;
+  saldoFavorDas: number=0;
   constructor( public navCtrl: NavController,private clientef:ClientesProvider,public dashboardf: DashboardProvider, private authf: AuthProvider ,public navParams: NavParams,private ventaf: VentasProvider) {
     this.idCliente = navParams.get("id"); 
   }
@@ -255,6 +256,8 @@ export class PagoPage implements OnInit {
         strExSaldo = strExSaldo.replace(reSaldoFavor,""); 
       }
       this.valorAfavor=parseFloat(strExSaldo);
+     
+
       saldoFavor=this.valorAfavor;
       this.total=this.to-valor1-saldoFavor;
       verificacion=this.total;
@@ -264,6 +267,7 @@ export class PagoPage implements OnInit {
         saldoAfavor=verificacion*(-1);
         console.log(saldoAfavor+'saldoAfavor');
         this.saldoFavor=saldoAfavor;
+        this.saldoFavorDas=saldoAfavor;
         this.total=0;
         
       }else{
@@ -316,6 +320,7 @@ export class PagoPage implements OnInit {
       }
       
       this.valorAfavor=parseFloat(strExSaldo);
+
       saldoFavor=this.valorAfavor;
       this.total=this.to-valor1-saldoFavor;
 
@@ -324,6 +329,7 @@ export class PagoPage implements OnInit {
       if(verificacion<0 || verificacion<0.00){
        let saldoAfavor:number=0;
         saldoAfavor=verificacion*(-1);
+        this.saldoFavorDas=saldoAfavor;
         console.log(saldoAfavor+'saldoAfavor');
         this.saldoFavor=saldoAfavor;
         this.total=0;
@@ -336,8 +342,8 @@ export class PagoPage implements OnInit {
       this.saldoFavor=resSaldo+'';
       this.totalSaldoFavor=this.saldoFavor;
         
-        res1=this.total.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        this.total=res1+'';
+      res1=this.total.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      this.total=res1+'';
         
       }else{
         this.total=this.tot;
@@ -368,8 +374,28 @@ export class PagoPage implements OnInit {
      if(strE && strE.length>3){
        strE = strE.replace(re,"");
      }
-     let totC=parseFloat(strE);
-     let totalC=totC+cobro;
+    let totC=parseFloat(strE);
+
+    let strExAdeuda :string;
+    strExAdeuda = this.tot;
+     var reSaldoAdeuda= /,/gi;
+   //primer paso: fuera puntoss
+     if(strExAdeuda && strExAdeuda.length>4){
+      strExAdeuda = strExAdeuda.replace(reSaldoAdeuda,""); 
+     }
+
+    
+     let adeuda=parseFloat(strExAdeuda);
+     console.log('ADEUDA C---------------'+adeuda);
+     let totalC:number;
+     if(cobro>adeuda){
+       
+        totalC=totC+cobro-this.saldoFavorDas;
+        console.log('SUMARCOBROS C--------------------'+totalC);
+     }else{
+      totalC=totC+cobro;
+     }
+     
      res2=totalC.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
      this.sumaCobrado=res2+'';
      this.numeroCobros=this.numeroCobros+1;
@@ -395,7 +421,24 @@ export class PagoPage implements OnInit {
        strE = strE.replace(re,"");
      }
      let totC=parseFloat(strE);
-     let totalC=totC+cobro;
+     let strExAdeuda :string;
+    strExAdeuda = this.tot;
+     var reSaldoAdeuda= /,/gi;
+   //primer paso: fuera puntoss
+     if(strExAdeuda && strExAdeuda.length>4){
+      strExAdeuda = strExAdeuda.replace(reSaldoAdeuda,""); 
+     }
+     let adeuda=parseFloat(strExAdeuda);
+     console.log('ADEUDA CC---------------'+adeuda);
+     let totalC:number;
+     if(cobro>adeuda){
+       
+        totalC=totC+cobro-this.saldoFavorDas;
+        console.log(this.saldoFavorDas)
+        console.log('SUMARCOBROS CC--------------------'+totalC);
+     }else{
+      totalC=totC+cobro;
+     }
      res2=totalC.toLocaleString('en-EN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
      this.sumaCobradoCli=res2+'';
      console.log(this.sumaCobradoCli+'ciobrado');

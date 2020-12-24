@@ -48,6 +48,13 @@
           </ion-label>
           <ion-input type="number" [(ngModel)]= "cantidad" name="cantidad" [value]=cantidad maxlength="7" (ionChange)="calcularCantidad($event.value)"  max="1000"  ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" required></ion-input>
         </ion-item>
+        <div class="spacer" style="height:10;" id="registroDeVentas-spacer7"></div>
+          <ion-item id="registroDeVentasContado-input9">
+            <ion-label>
+              SubTotal :
+            </ion-label>
+            <ion-input type="text" [(ngModel)]= "subTotalP" name="subTotalP" ng-pattern="/^[0-9]{1,2}([,.][0-9]{1,2})?$/" readonly></ion-input>
+          </ion-item>
 
       <div class="spacer" style="height:10;" id="registroDeVentasContado-spacer9"></div>
       <ion-item >
