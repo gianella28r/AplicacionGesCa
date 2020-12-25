@@ -526,6 +526,7 @@ export class VentaContadoPage implements OnInit  {
     value.fechaPago=this.fecha;
     value.saldoFavor=this.saldoFavor;
     value.estadoTransaccion=true;
+    value.subTotal=this.subTotalP;
     this.numeroVentas=this.numeroVentas+1;
     this.numeroCobros=this.numeroCobros+1;
     this.numeroPa=this.numeroPa+1;

@@ -12,6 +12,8 @@ import { FormaPago } from '../../models/formaPago';
  * Ionic pages and navigation.
  */
 
+
+ 
 @IonicPage()
 @Component({
   selector: 'page-enviar-datos',
@@ -66,7 +68,7 @@ export class EnviarDatosPage implements OnInit {
       name: 'group1',
       value: 'radio_1',
       titulo: 'Cuenta',
-      texto: 'Hola ',
+      texto: 'Hola Estimad@',
       disabled: false,
       checked: false,
       color: 'primary'
@@ -76,8 +78,8 @@ export class EnviarDatosPage implements OnInit {
       id: '1',
       name: 'group1',
       value: 'radio_1',
-      titulo: 'Ultima Transaccion',
-      texto: '***Transacciones***',
+      titulo: 'Ultima Transacción',
+      texto: '***Transacción***',
       disabled: false,
       checked: false,
       color: 'primary'
@@ -138,7 +140,7 @@ export class EnviarDatosPage implements OnInit {
   capturarItemLocal(value){
     console.log('valueenviar'+ value);
     this.mensaje=value;
-    this.mensaje=this.mensaje+' '+this.idNombres+'\n'+'Su Cuenta actual es $'+this.idAdeuda;
+    this.mensaje=this.mensaje+' '+this.idNombres+'\n'+'Usted actualmente adeuda $'+this.idAdeuda;
      console.log('valuemensaje'+this.mensaje);
     // alert('valuemensaje'+this.mensaje);
   }
@@ -150,17 +152,17 @@ export class EnviarDatosPage implements OnInit {
     var fecha = new Date(fecha1);
     let fechaT=fecha.toLocaleDateString();
     if(this.venta.titulo=="Venta Credito"){
-      this.mensaje=this.mensaje+'\n'+'Cliente: '+this.idNombres+'\n'+'Fecha: '+fechaT+'\n'+'Transaccion: '+this.venta.titulo+'\n'+'Producto: '+this.venta.nombreProducto+'\n'+'Precio: '+this.venta.precio+'\n'+'Cantidad: '+this.venta.cantidad+'\n'
-      +'Total: '+this.venta.subTotal+'\n'+'Anticipo: '+this.venta.anticipo+'\n'+'Adeuda: '+this.venta.total;
+      this.mensaje=this.mensaje+'\n'+'Hola Estimad@ '+this.idNombres+'\n'+'A continuación se detalla la última transacción realizada:'+'\n'+'Transacción: '+this.venta.titulo+'\n'+'Realizada: '+fechaT+'\n'+'Producto Comprado: '+this.venta.nombreProducto+'\n'+'Número de productos Comprados: '+this.venta.cantidad+'\n'+'Precio de Venta: '+this.venta.precio+'\n'
+      +'Total: '+this.venta.subTotal+'\n'+'Saldo a favor: '+this.venta.saldoFavor+'\n'+'Anticipo: '+this.venta.anticipo+'\n'+'Adeuda: '+this.venta.total;
     }
 
     if(this.venta.titulo=="Venta Contado"){
-      this.mensaje=this.mensaje+'\n'+'Cliente: '+this.idNombres+'\n'+'Fecha: '+fechaT +'Transaccion: '+this.venta.titulo+'\n'+'Producto: '+this.venta.nombreProducto+'\n'+'Precio: '+this.venta.precio+'\n'+'Cantidad: '+this.venta.cantidad+'\n'
-      +'Total: '+this.venta.pago+'\n'+'Adeuda: '+this.venta.total;
+      this.mensaje=this.mensaje+'\n'+'Hola Estimad@ : '+this.idNombres+'\n'+'A continuación se detalla la última transacción realizada:'+'\n'+'Transacción: '+this.venta.titulo+'\n'+'Realizada: '+fechaT+'\n'+'Producto Comprado: '+this.venta.nombreProducto+'\n'+'\n'+'Número de productos Comprados: '+this.venta.cantidad+'\n'+'Precio de Venta: '+this.venta.precio+'\n'
+     +'SubTotal:'+this.venta.subTotal+'\n'+'Saldo a favor: '+this.venta.saldoFavor+'\n'+'Total Pagado: '+this.venta.pago+'\n'+'Adeuda: '+this.venta.total;
     }
 
     if(this.venta.titulo=="Pago"){
-      this.mensaje=this.mensaje+'\n'+'Cliente: '+this.idNombres+'\n'+'Fecha: '+fechaT +', Transaccion: '+this.venta.titulo+'\n'+' Monto: '+this.venta.pago;
+      this.mensaje=this.mensaje+'\n'+'Hola Estimad@: '+this.idNombres+'\n'+'A continuación se detalla la última transacción realizada:'+'\n'+'Transacción: '+this.venta.titulo+'\n'+'Realizada: '+fechaT+'\n'+'Saldo a favor: '+this.venta.saldoFavor+'\n'+'Monto Pagado: '+this.venta.pago+'\n'+'Adeuda: '+this.venta.total;;
     }
     
      console.log('valuemensaje'+this.mensaje);
@@ -170,7 +172,7 @@ export class EnviarDatosPage implements OnInit {
   capturarItemLocal3(value){
     this.mensaje='';
     this.mensaje=value;
-    this.mensaje=this.mensajeF+'\n'+this.mensajeFormaPago;
+    this.mensaje=this.mensaje+'\n'+'Hola Estimad@ : '+this.idNombres+'\n'+'Actualmente se ha establecido la siguiente forma de Pago.'+'\n'+this.mensajeFormaPago;
      console.log('valuemensaje'+this.mensaje);
     // alert('valuemensaje'+this.mensaje);
   }
