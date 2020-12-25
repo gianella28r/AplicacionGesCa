@@ -116,7 +116,7 @@ export class EnviarDatosPage implements OnInit {
   mensajeF:string="";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private ventaf:VentasProvider, alert:AlertController,
+    private ventaf:VentasProvider, alert:AlertController,private alertCtrl: AlertController,
     private socialSharing: SocialSharing) {
     this.cuenta = navParams.get("cliente");
     this.idNombres=this.cuenta.nombres;
@@ -125,6 +125,7 @@ export class EnviarDatosPage implements OnInit {
     this.idAdeuda=this.cuenta.adeuda;
     this.idCliente=this.cuenta.id;
     this.venta = navParams.get("venta");
+    console.log('numerotelefono'+this.idNumero);
   }
 
   
@@ -134,6 +135,7 @@ export class EnviarDatosPage implements OnInit {
 
   ngOnInit(){ //se ejecuta cada vez que el componente inicia su carga
     this.cargarFormaPago();  
+    this.capturarItemLocal(this.radio_list.texto);
   }
 
   //funcion para guardar el mensaje seleccionado
@@ -157,7 +159,7 @@ export class EnviarDatosPage implements OnInit {
     }
 
     if(this.venta.titulo=="Venta Contado"){
-      this.mensaje=this.mensaje+'\n'+'Hola Estimad@ : '+this.idNombres+'\n'+'A continuación se detalla la última transacción realizada:'+'\n'+'Transacción: '+this.venta.titulo+'\n'+'Realizada: '+fechaT+'\n'+'Producto Comprado: '+this.venta.nombreProducto+'\n'+'\n'+'Número de productos Comprados: '+this.venta.cantidad+'\n'+'Precio de Venta: '+this.venta.precio+'\n'
+      this.mensaje=this.mensaje+'\n'+'Hola Estimad@ : '+this.idNombres+'\n'+'A continuación se detalla la última transacción realizada:'+'\n'+'Transacción: '+this.venta.titulo+'\n'+'Realizada: '+fechaT+'\n'+'Producto Comprado: '+this.venta.nombreProducto+'\n'+'Número de productos Comprados: '+this.venta.cantidad+'\n'+'Precio de Venta: '+this.venta.precio+'\n'
      +'SubTotal:'+this.venta.subTotal+'\n'+'Saldo a favor: '+this.venta.saldoFavor+'\n'+'Total Pagado: '+this.venta.pago+'\n'+'Adeuda: '+this.venta.total;
     }
 
@@ -214,13 +216,23 @@ export class EnviarDatosPage implements OnInit {
   }
  
   goToEnviarWhatsapp(){
+    if(this.idNumero!=null && this.idNumero!="" ){
     let numero='593';
     numero=numero+this.idNumero;
+    console.log(this.idNumero+'numero');
     this.socialSharing.shareViaWhatsAppToReceiver(numero, this.mensaje, null, null).then(() => {
           // Success!
     }).catch(() => {
           // Error!
-    });
+    });}
+    else{
+      let alert = this.alertCtrl.create({
+        title: '',
+        message: 'No se puede realizar esta acción. Por favor añada un número de teléfono a Cliente.',
+        buttons: ['OK']
+        });
+        alert.present();
+    }
   }
 
   goToEnviarSms(){

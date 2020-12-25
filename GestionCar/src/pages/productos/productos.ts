@@ -83,13 +83,31 @@ export class ProductosPage implements OnInit  {
   }
   //Funcion que permite compartir datos del producto
   shareProducto(nombre,precioVenta,descripcion,image ){
-    let mensaje='';
-    mensaje=mensaje+'Nombre:'+nombre+', '+ 'Precio: $'+precioVenta+', '+'Descripcion:'+descripcion;
-        this.socialSharing.share(mensaje, null, image, null).then(() => {
-          // Success!
-        }).catch(() => {
-          // Error!
+    let m:string;
+    m=image;
+    console.log(image+"Imagen");
+    if(m == "assets/imgs/nimg.jpg"){
+      let alert = this.alertCtrl.create({
+        title: '',
+        message: 'No se puede compartir este producto. Por favor añada una imagen.',
+        buttons: ['OK']
         });
+        alert.present();
+
+    }else{
+      let mensaje='';
+      mensaje=mensaje+nombre+'\n'+ 'Precio: $'+precioVenta+'\n'+descripcion;
+
+      this.socialSharing.share(mensaje, null, image, null).then(() => {
+        // Success!
+      }).catch(() => {
+        
+      });
+      
+    }
+    
+    
+       
   }
 
   //Función que redirige a la pagina de Editar Producto

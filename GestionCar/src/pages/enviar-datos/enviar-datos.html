@@ -24,7 +24,7 @@
 <ion-list >
 <ion-item>
    <label class = "item item-radio">
-      <input type = "radio" name = "group1" (click)="capturarItemLocal(radio_list.texto);"/>{{radio_list.titulo}}
+      <input type = "radio" name = "group1" checked (click)="capturarItemLocal(radio_list.texto); " />{{radio_list.titulo}}
       <i class = "radio-icon ion-checkmark"></i>
    </label>
    </ion-item>
@@ -33,7 +33,7 @@
 
     <ion-item>
    <label class = "item item-radio">
-      <input type = "radio" name = "group1" (click)="capturarItemLocal2(radioL.texto);"/>{{radioL.titulo}}
+      <input type = "radio" name = "group1" (click)="capturarItemLocal2(radioL.texto);" />{{radioL.titulo}}
       <i class = "radio-icon ion-checkmark"></i>
    </label>
    </ion-item>
