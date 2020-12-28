@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">GesCar</string>
+    <string name="title_activity_main">GesCar</string>
+    <string name="package_name">gescar.gestion.cartera</string>
+    <string name="custom_url_scheme">gescar.gestion.cartera</string>
+</resources>

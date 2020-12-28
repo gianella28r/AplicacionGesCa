@@ -15,6 +15,11 @@ import ClientesPage from '../clientes/clientes';
 import { NotasUsuarioPage } from '../notas-usuario/notas-usuario';
 import { VentasProvider } from '../../providers/ventas/ventas';
 import { Ventas } from '../../models/ventas';
+import {Plugins, PushNotification, PushNotificationToken} from '@capacitor/core';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { HttpClient} from '@angular/common/http';
+//import * as cors from 'cors';
+import *  as express from 'express';
 /**
  * Generated class for the DashboardPage page.
  *
@@ -196,6 +201,7 @@ export class DashboardPage implements OnInit {
   contadorNotasTotales: number;
   productoss: any;
   contadorProductosTotales: number;
+  token:string='';
 
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController,private clientef:ClientesProvider,
     public dashboardf: DashboardProvider, public alertCtrl: AlertController,private ventaf:VentasProvider,
@@ -207,7 +213,7 @@ export class DashboardPage implements OnInit {
    //this.detalleUsuario();
     //this.graficaBalance();
     //this.allClientes();
-    this.allProductosUsuarios();
+   //this.allProductosUsuarios();
     this.getFechaActual();
     this.getDashboard();
     this.allClientes();
@@ -218,7 +224,33 @@ export class DashboardPage implements OnInit {
     this.getVencidos();
     this.getPorVencer();
     this.ClientesVentas();  
-    this.allNotasUsuarios();
+   // this.allNotasUsuarios();
+    try{
+      Plugins.PushNotifications.addListener('registration', (token:PushNotificationToken)=>{
+        console.log('Token'+JSON.stringify(token));
+        this.token=token.value;
+        console.log('Token2'+JSON.stringify(this.token));
+        let alert = this.alertCtrl.create({
+          title: '',
+          message: 'token'+this.token,
+          buttons: ['OK']
+          });
+          alert.present();
+        //this.saveTokenFi rebase();
+      });
+      Plugins.PushNotifications.register().then(()=>{});
+
+    }
+    catch(err){
+      let alert = this.alertCtrl.create({
+        title: '',
+        message: 'error'+err,
+        buttons: ['OK']
+        });
+        alert.present();
+      //alert("hjhjhjh "+err);
+    }
+    
   }
 
   ngAfterViewInit(){

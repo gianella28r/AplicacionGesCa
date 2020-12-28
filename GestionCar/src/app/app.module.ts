@@ -83,6 +83,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Network } from '@ionic-native/network';
 import { DashboardProvider } from '../providers/dashboard/dashboard';
+//import { Plugins } from '@capacitor/core';
+//import { HttpClientModule } from '@angular/common/http';
 //import { Chart } from 'chart.js';
 
 //import { from } from 'rxjs/observable/from';
@@ -138,7 +140,7 @@ api.settings({timestampsInSnapshots: true})
     AngularFirestoreModule.enablePersistence(),//enablePersistence(),//
     AngularFireDatabaseModule, 
     FormsModule,
-    AngularFireStorageModule,
+    AngularFireStorageModule
     
     
   ],
@@ -189,7 +191,11 @@ api.settings({timestampsInSnapshots: true})
     LocalNotifications,
     Network,
     Geolocation,
-    
+    /*PushManager,
+    PushSubscription,
+    PushSubscriptionOptions,*/
+    Plugin,
+    //Plugins,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     ClientesProvider,

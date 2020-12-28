@@ -1,14 +1,17 @@
-<!--<ion-header>
+<ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Clientes</ion-title>
+    <ion-title>Notificaciones Push</ion-title>
   </ion-navbar>
-</ion-header>-->
+</ion-header>
 
-<ion-content padding>
-  <p>
-      Bienvenido
-  </p>
+<ion-content>
+  <div class="ion-padding">
+    <p>
+      {{token}}
+    </p>
+    <ion-button (clic)="requestPermissions()" expand="full" color=primary>Habilitar notificaciones Push</ion-button>
+  </div>
 </ion-content>

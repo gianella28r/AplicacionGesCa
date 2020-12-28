@@ -8,7 +8,5 @@ export interface Usuario{
     contadorVentas?:any;
     contadorCobros?:any;
     totalVendido?:any;
-    totalCobrado?:any;
-    
-    
+    totalCobrado?:any;   
 }

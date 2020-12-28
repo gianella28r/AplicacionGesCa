@@ -14,8 +14,9 @@ import { AyudaPage } from '../pages/ayuda/ayuda';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { auth } from 'firebase';
 import firebase from 'firebase';
-import { HomePage } from '../pages/home/home';
+//import { HomePage } from '../pages/home/home';
 import {App} from 'ionic-angular'
+
 
 
 
@@ -80,6 +81,7 @@ export class MyApp {
     //this._AUTH.logOut();
     
     this.initializeApp();
+    
 
     
   }

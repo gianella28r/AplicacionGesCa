@@ -8,6 +8,7 @@ import { RecuperarCuentaPage } from '../recuperar-cuenta/recuperar-cuenta';
 import { Usuario } from '../../models/usuario';
 import { DashboardPage } from '../dashboard/dashboard';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
+import { EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
 
 
 
@@ -125,5 +126,8 @@ export class LoginPage implements OnInit {
   goToRecuperarCuenta(){
     this.navCtrl.push(RecuperarCuentaPage);
   }
+
+  //funcion para permisos notificaciones push
+
 
 }                             

@@ -109,16 +109,7 @@ export class AuthProvider {
  isAuthenticated() {
     return this.authState.value;
   }
-  
-  
- 
- /* estado(esta:any){
-    
-    esta=this.estado;
-    console.log(esta+'estado');
-    return esta;
-  }*/
- 
+   
   //metodo para verificaf si existe un usuario autenticado 
   get authenticated(): boolean {
     return this.userr != null;
@@ -175,20 +166,15 @@ export class AuthProvider {
       return Promise.reject(err);
     })
 }
-
+  //validar si existe correo
   get lo(): boolean{
     var ema= localStorage.getItem('correo');
-   // var e=localStorage.email;
-   // alert(ema+'e');
     return  ema !=null && ema!='';
   }
 
-  /*isAuthenticated() {
-    return this.authenticationState.value;
-  }*/
   //metodo para cerrar sesion
   logOut(){
-    return new Promise<void> ((resolve, reject) =>{
+    return new Promise ((resolve, reject) =>{
       if( firebase.auth().currentUser){
           firebase.auth().signOut()
         .then(() => {
@@ -216,6 +202,7 @@ export class AuthProvider {
          email:usuario.email,
          password:usuario.password,
          uid: uid,
+         
         });    
         var userDashboard= firebase.firestore().collection('Usuarios').doc(res.user.uid).collection('Dashboard').doc(res.user.uid);
          userDashboard.set({
@@ -227,7 +214,7 @@ export class AuthProvider {
          totalVendido:'0',
          totalCobrado:'0',
          uid: uid,
-        })    
+        })  
         
         resolve(res)
       }).catch( err =>reject(err))
