@@ -188,7 +188,7 @@ export class AuthProvider {
   }*/
   //metodo para cerrar sesion
   logOut(){
-    return new Promise ((resolve, reject) =>{
+    return new Promise<void> ((resolve, reject) =>{
       if( firebase.auth().currentUser){
           firebase.auth().signOut()
         .then(() => {
